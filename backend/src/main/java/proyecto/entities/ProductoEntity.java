@@ -1,43 +1,39 @@
 package proyecto.entities;
 
-public class ProductoEntity {
-    /* Atributos
-    Campo Tipo de dato Descripción
-    id_producto SERIAL (PK) Identificador único del producto
-    nombre VARCHAR(255) Nombre del producto
-    descripcion TEXT Descripción del producto
-    precio DECIMAL(10, 2) Precio del producto
-    stock INT Cantidad disponible del producto
-    estado VARCHAR(50) Estado del producto (&quot;disponible&quot;, &quot;agotado&quot;)
-    id_categoria INTEGER (FK) Clave foránea que referencia a la categoría
-     */
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    private int id_producto;
+@Document(collection = "productos")
+public class ProductoEntity {
+
+    @Id // Identificador único en MongoDB
+    private String id; // MongoDB utiliza un identificador de tipo String por defecto
     private String nombre;
     private String descripcion;
     private double precio;
     private int stock;
-    private String estado;
-    private int id_categoria;
+    private String estado; // Puede ser "disponible" o "agotado"
+    private String idCategoria; // Relación con la categoría (referencia)
 
-    public ProductoEntity(int id_producto,String nombre, String descripcion, double precio, int stock, String estado, int id_categoria) {
-        this.id_producto = id_producto;
+    // Constructor
+    public ProductoEntity(String nombre, String descripcion, double precio, int stock, String estado, String idCategoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.estado = estado;
-        this.id_categoria = id_categoria;
-
+        this.idCategoria = idCategoria;
     }
 
-    public int getId_producto() {
-        return id_producto;
+    // Getters y Setters
+    public String getId() {
+        return id;
     }
 
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
+    public void setId(String id) {
+        this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
@@ -78,11 +74,11 @@ public class ProductoEntity {
         this.estado = estado;
     }
 
-    public int getId_categoria() {
-        return id_categoria;
+    public String getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setId_categoria(int id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setIdCategoria(String idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }

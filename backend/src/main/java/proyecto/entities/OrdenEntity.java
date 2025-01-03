@@ -1,56 +1,50 @@
 package proyecto.entities;
-import java.sql.Timestamp;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.Instant;
+
+@Document(collection = "ordenes") // Indica que esta clase representa una colección en MongoDB
 public class OrdenEntity {
-    /* Atributos
-    Campo Tipo de dato Descripción
-    id_orden SERIAL (PK) Identificador único de la orden
-    fecha_orden TIMESTAMP Fecha en que se realizó la orden
-    estado VARCHAR(50) Estado de la orden (&quot;pendiente&quot;, &quot;pagada&quot;, &quot;enviada&quot;)
-    id_cliente INTEGER (FK) Clave foránea que referencia al cliente
-    total DECIMAL(10, 2) Total a pagar por la orden
-     */
 
-    private int id_orden;
-    private Timestamp fecha_orden;
-    private String estado;
-    private int id_cliente;
-    private double total;
+    @Id // Identificador único en MongoDB
+    private String id; // MongoDB utiliza un identificador de tipo String por defecto
+    private Instant fechaOrden; // Usamos Instant para fechas en lugar de Timestamp
+    private String estado; // Puede ser "pendiente", "pagada", "enviada", etc.
+    private String idCliente; // Relación con el cliente (referencia)
+    private double total; // Total a pagar
+    private double latitud; // Coordenada geográfica
+    private double longitud; // Coordenada geográfica
+    private String idRepartidor; // Relación con el repartidor (referencia)
 
-    //Ubicacion de la orden
-    private double latitud;
-    private double longitud;
-
-    private int id_repartidor;
-
-    public OrdenEntity(int id_orden, Timestamp fecha_orden,
-                       String estado, int id_cliente,
-                       double total, double latitud,
-                       double longitud, int id_repartidor) {
-        this.id_orden = id_orden;
-        this.fecha_orden = fecha_orden;
+    // Constructor
+    public OrdenEntity(Instant fechaOrden, String estado, String idCliente,
+                       double total, double latitud, double longitud, String idRepartidor) {
+        this.fechaOrden = fechaOrden;
         this.estado = estado;
-        this.id_cliente = id_cliente;
+        this.idCliente = idCliente;
         this.total = total;
         this.latitud = latitud;
         this.longitud = longitud;
-        this.id_repartidor = id_repartidor;
+        this.idRepartidor = idRepartidor;
     }
 
-    public int getId_orden() {
-        return id_orden;
+    // Getters y Setters
+    public String getId() {
+        return id;
     }
 
-    public void setId_orden(int id_orden) {
-        this.id_orden = id_orden;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Timestamp getFecha_orden() {
-        return fecha_orden;
+    public Instant getFechaOrden() {
+        return fechaOrden;
     }
 
-    public void setFecha_orden(Timestamp fecha_orden) {
-        this.fecha_orden = fecha_orden;
+    public void setFechaOrden(Instant fechaOrden) {
+        this.fechaOrden = fechaOrden;
     }
 
     public String getEstado() {
@@ -61,12 +55,12 @@ public class OrdenEntity {
         this.estado = estado;
     }
 
-    public int getId_cliente() {
-        return id_cliente;
+    public String getIdCliente() {
+        return idCliente;
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 
     public double getTotal() {
@@ -93,11 +87,11 @@ public class OrdenEntity {
         this.longitud = longitud;
     }
 
-    public int getId_repartidor() {
-        return id_repartidor;
+    public String getIdRepartidor() {
+        return idRepartidor;
     }
 
-    public void setId_repartidor(int id_cliente) {
-        this.id_repartidor = id_cliente;
+    public void setIdRepartidor(String idRepartidor) {
+        this.idRepartidor = idRepartidor;
     }
 }

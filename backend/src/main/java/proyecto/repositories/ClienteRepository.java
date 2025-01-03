@@ -1,33 +1,27 @@
 package proyecto.repositories;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 import proyecto.entities.ClienteEntity;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface ClienteRepository {
+@Repository
+public interface ClienteRepository extends MongoRepository<ClienteEntity, String> {
 
-    public ResponseEntity<Object> findByName(String name);
+    // Buscar un cliente por nombre
+    Optional<ClienteEntity> findByName(String name);
 
-    public ResponseEntity<Object> createUser(ClienteEntity user);
+    // Buscar un cliente por su correo electrónico
+    Optional<ClienteEntity> findByEmail(String email);
 
-    // Recupera todos los clientes
-    public ResponseEntity<List<Object>> findAll();
-    // Recupera un cliente por su ID
-    public ResponseEntity<Object> findById(int id_cliente);
+    // Buscar todos los clientes
+    List<ClienteEntity> findAll();
 
-    // Recupera un cliente por su correo electrónico
-    public ResponseEntity<Object> findByEmail(String email);
+    // No es necesario implementar estos métodos en el repositorio, se pueden implementar en el servicio
+    // Buscar cliente por ID
+    Optional<ClienteEntity> findById(String id_cliente);
 
-    // Actualiza un cliente
-    public ResponseEntity<Object> update(ClienteEntity cliente);
 
-    // Elimina un cliente por su ID
-    public ResponseEntity<Object> delete(int id_cliente);
-
-    // Realiza el login de un cliente
-    public ResponseEntity<Object> loginUser(String email, String password);
-
-    //Punto medio geografio entre dos clientes
-    public ResponseEntity<Object> puntoMedio(int id_cliente1, int id_cliente2);
 }

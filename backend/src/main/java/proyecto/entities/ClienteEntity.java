@@ -1,30 +1,38 @@
 package proyecto.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "clientes")  // Indica que esta clase será almacenada en la colección "clientes"
 public class ClienteEntity {
 
     /* Atributos
     Campo Tipo de dato Descripción
-    id_cliente SERIAL (PK) Identificador único del cliente
-    nombre VARCHAR(255) Nombre completo del cliente
-    direccion VARCHAR(255) Dirección del cliente
-    email VARCHAR(100) Correo electrónico del cliente
-    telefono VARCHAR(20) Teléfono de contacto
+    id_cliente ObjectId (PK) Identificador único del cliente
+    nombre String Nombre completo del cliente
+    direccion String Dirección del cliente
+    email String Correo electrónico del cliente
+    telefono String Teléfono de contacto
+    latitud Double Latitud del cliente
+    longitud Double Longitud del cliente
      */
 
-    private int id_cliente;
-    private String nombre;
+    @Id  // Se usa para marcar el campo como la clave primaria (_id en MongoDB)
+    private String id_cliente; // Usamos String para almacenar el ObjectId en MongoDB
 
+    private String nombre;
     private String contrasena;
     private String direccion;
     private String comuna;
     private String email;
     private String telefono;
 
-    //Agregamos latitud y longitud
+    // Agregamos latitud y longitud
     private double latitud;
     private double longitud;
 
-    public ClienteEntity(int id_cliente, String nombre, String contrasena,
+    // Constructor
+    public ClienteEntity(String id_cliente, String nombre, String contrasena,
                          String direccion, String comuna, String email,
                          String telefono, double latitud, double longitud) {
         this.id_cliente = id_cliente;
@@ -38,14 +46,15 @@ public class ClienteEntity {
         this.longitud = longitud;
     }
 
-    public ClienteEntity() {
-    }
+    // Constructor vacío
+    public ClienteEntity() {}
 
-    public int getId_cliente() {
+    // Getters y setters
+    public String getId_cliente() {
         return id_cliente;
     }
 
-    public void setId_cliente(int id_cliente) {
+    public void setId_cliente(String id_cliente) {
         this.id_cliente = id_cliente;
     }
 
@@ -57,6 +66,14 @@ public class ClienteEntity {
         this.nombre = nombre;
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -66,7 +83,7 @@ public class ClienteEntity {
     }
 
     public String getComuna() {
-        return this.comuna;
+        return comuna;
     }
 
     public void setComuna(String comuna) {
@@ -89,14 +106,6 @@ public class ClienteEntity {
         this.telefono = telefono;
     }
 
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public double getLatitud() {
         return latitud;
     }
@@ -116,7 +125,7 @@ public class ClienteEntity {
     @Override
     public String toString() {
         return "ClienteEntity{" +
-                "id_cliente=" + id_cliente +
+                "id_cliente='" + id_cliente + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 ", direccion='" + direccion + '\'' +

@@ -13,36 +13,51 @@ import java.util.List;
 public class OrdenService {
 
     @Autowired
-    OrdenRepository ordenRepository;
+    private OrdenRepository ordenRepository;
 
-    public ResponseEntity<List<Object>> findAll() {
-        return ordenRepository.findAll();
+    public ResponseEntity<List<OrdenEntity>> findAll() {
+        List<OrdenEntity> ordenes = ordenRepository.findAll();
+        if (ordenes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(ordenes);
     }
 
-    public ResponseEntity findById(int id_orden) {
-        return ordenRepository.findById(id_orden);
+    public ResponseEntity<OrdenEntity> findById(String id_orden) {
+        return ordenRepository.findById(id_orden)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public ResponseEntity<List<Object>> findByCliente(int id_cliente) {
-        return ordenRepository.findByCliente(id_cliente);
+    public ResponseEntity<OrdenEntity> create(OrdenEntity orden) {
+        OrdenEntity createdOrder = ordenRepository.save(orden);
+        return ResponseEntity.ok(createdOrder);
     }
 
-    public ResponseEntity create(OrdenEntity orden) {
-        return ordenRepository.create(orden);
+    public ResponseEntity<OrdenEntity> update(OrdenEntity orden) {
+        // Si la orden existe, se actualiza. Si no, puedes lanzar un error.
+        if (ordenRepository.existsById(orden.getId())) {
+            OrdenEntity updatedOrder = ordenRepository.save(orden);
+            return ResponseEntity.ok(updatedOrder);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    public ResponseEntity update(OrdenEntity orden) {
-        return ordenRepository.update(orden);
+    public ResponseEntity<Void> delete(String id_orden) {
+        if (ordenRepository.existsById(id_orden)) {
+            ordenRepository.deleteById(id_orden);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-    public ResponseEntity delete(int id_orden) {
-        return ordenRepository.delete(id_orden);
-    }
-
-    public ResponseEntity updateEstado(int id_orden, String estado) {
-        return ordenRepository.updateEstado(id_orden, estado);
-    }
+/*
     public ResponseEntity<List<RepartidorDTO>> findDeliveryCompletedInArea(int id_zona) {
-        return ordenRepository.findDeliveryCompletedInArea(id_zona);
+        // Realizar consulta en MongoDB o con MongoTemplate si es necesario
+        List<RepartidorDTO> result = ordenRepository.findDeliveryCompletedInArea(id_zona);
+        return result.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(result);
     }
+    */
+
 }
