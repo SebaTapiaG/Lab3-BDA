@@ -5,12 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-import proyecto.repositories.AlmacenRepository;
 =======
 import proyecto.entities.AlmacenEntity;
 >>>>>>> Stashed changes
 =======
-import proyecto.entities.AlmacenEntity;
 >>>>>>> Stashed changes
 
 import java.util.List;

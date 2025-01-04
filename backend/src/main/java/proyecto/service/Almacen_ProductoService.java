@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-import proyecto.repositories.Almacen_ProductoRepository;
 =======
-import proyecto.entities.Almacen_ProductoEntity;
 >>>>>>> Stashed changes
 =======
 import proyecto.entities.Almacen_ProductoEntity;
