@@ -14,9 +14,13 @@ public interface CategoriaRepository extends MongoRepository<CategoriaEntity, Ob
     ResponseEntity<Object> findById(int id_categoria);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     ResponseEntity<Object> create(CategoriaModel categoria);
 
     ResponseEntity<Object> update(CategoriaModel categoria);
+=======
+    ResponseEntity<Object> save(CategoriaEntity categoria);
+>>>>>>> Stashed changes
 =======
     ResponseEntity<Object> save(CategoriaEntity categoria);
 >>>>>>> Stashed changes
