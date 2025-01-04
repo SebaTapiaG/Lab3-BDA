@@ -23,7 +23,6 @@ public class RepartidorModel {
     private String contrasena;
     private String email;
     private String telefono;
-    private int id_almacen;
 
     public Object getId() {
         return id;
@@ -65,11 +64,4 @@ public class RepartidorModel {
         this.telefono = telefono;
     }
 
-    public int getId_almacen() {
-        return id_almacen;
-    }
-
-    public void setId_almacen(int id_almacen) {
-        this.id_almacen = id_almacen;
-    }
 }
