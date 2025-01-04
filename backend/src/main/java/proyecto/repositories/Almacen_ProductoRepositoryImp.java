@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import proyecto.entities.Almacen_ProductoEntity;
 
 import java.util.List;
 
@@ -17,8 +16,8 @@ public class Almacen_ProductoRepositoryImp implements Almacen_ProductoRepository
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try(Connection conn = sql2o.open()){
-            List<Almacen_ProductoEntity> almacen_productos = conn.createQuery("SELECT * FROM almacen_producto")
-                    .executeAndFetch(Almacen_ProductoEntity.class);
+            List<Almacen_ProductoModel> almacen_productos = conn.createQuery("SELECT * FROM almacen_producto")
+                    .executeAndFetch(Almacen_ProductoModel.class);
             List<Object> result = (List) almacen_productos;
             if(almacen_productos.isEmpty()){
                 return ResponseEntity.noContent().build();
@@ -32,9 +31,9 @@ public class Almacen_ProductoRepositoryImp implements Almacen_ProductoRepository
     @Override
     public ResponseEntity<Object> findById(int id_almacen_producto) {
         try(Connection conn = sql2o.open()){
-            Almacen_ProductoEntity almacen_producto = conn.createQuery("SELECT * FROM almacen_producto WHERE id_almacen_producto = :id_almacen_producto")
+            Almacen_ProductoModel almacen_producto = conn.createQuery("SELECT * FROM almacen_producto WHERE id_almacen_producto = :id_almacen_producto")
                     .addParameter("id_almacen_producto", id_almacen_producto)
-                    .executeAndFetchFirst(Almacen_ProductoEntity.class);
+                    .executeAndFetchFirst(Almacen_ProductoModel.class);
             if(almacen_producto == null){
                 return ResponseEntity.notFound().build();
             }
@@ -45,7 +44,7 @@ public class Almacen_ProductoRepositoryImp implements Almacen_ProductoRepository
     }
 
     @Override
-    public ResponseEntity<Object> create(Almacen_ProductoEntity almacen_producto) {
+    public ResponseEntity<Object> create(Almacen_ProductoModel almacen_producto) {
         try(Connection conn = sql2o.open()){
             Integer id = (Integer) conn.createQuery("INSERT INTO almacen_producto (id_almacen, id_producto) VALUES (:id_almacen, :id_producto)", true)
                     .addParameter("id_almacen", almacen_producto.getId_almacen())
@@ -59,7 +58,7 @@ public class Almacen_ProductoRepositoryImp implements Almacen_ProductoRepository
     }
 
     @Override
-    public ResponseEntity<Object> update(Almacen_ProductoEntity almacen_producto) {
+    public ResponseEntity<Object> update(Almacen_ProductoModel almacen_producto) {
         try(Connection conn = sql2o.open()){
             conn.createQuery("UPDATE almacen_producto SET id_almacen = :id_almacen, id_producto = :id_producto WHERE id_almacen_producto = :id_almacen_producto")
                     .addParameter("id_almacen", almacen_producto.getId_almacen())

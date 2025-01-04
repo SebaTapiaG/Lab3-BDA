@@ -1,10 +1,11 @@
-package proyecto.entities;
+package proyecto.models;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "clientes")  // Indica que esta clase será almacenada en la colección "clientes"
-public class ClienteEntity {
+@Document(collection = "Cliente")  // Indica que esta clase será almacenada en la colección "clientes"
+public class ClienteModel {
 
     /* Atributos
     Campo Tipo de dato Descripción
@@ -17,8 +18,8 @@ public class ClienteEntity {
     longitud Double Longitud del cliente
      */
 
-    @Id  // Se usa para marcar el campo como la clave primaria (_id en MongoDB)
-    private String id_cliente; // Usamos String para almacenar el ObjectId en MongoDB
+    @Id
+    private ObjectId id;
 
     private String nombre;
     private String contrasena;
@@ -31,31 +32,12 @@ public class ClienteEntity {
     private double latitud;
     private double longitud;
 
-    // Constructor
-    public ClienteEntity(String id_cliente, String nombre, String contrasena,
-                         String direccion, String comuna, String email,
-                         String telefono, double latitud, double longitud) {
-        this.id_cliente = id_cliente;
-        this.nombre = nombre;
-        this.contrasena = contrasena;
-        this.direccion = direccion;
-        this.comuna = comuna;
-        this.email = email;
-        this.telefono = telefono;
-        this.latitud = latitud;
-        this.longitud = longitud;
+    public ObjectId getId() {
+        return id;
     }
 
-    // Constructor vacío
-    public ClienteEntity() {}
-
-    // Getters y setters
-    public String getId_cliente() {
-        return id_cliente;
-    }
-
-    public void setId_cliente(String id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -125,7 +107,7 @@ public class ClienteEntity {
     @Override
     public String toString() {
         return "ClienteEntity{" +
-                "id_cliente='" + id_cliente + '\'' +
+                "id_cliente='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", contrasena='" + contrasena + '\'' +
                 ", direccion='" + direccion + '\'' +

@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import proyecto.dto.RepartidorDTO;
-import proyecto.entities.Detalle_OrdenEntity;
-import proyecto.entities.OrdenEntity;
-import proyecto.entities.ProductoEntity;
+import proyecto.models.OrdenModel;
+import proyecto.models.ProductoModel;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -24,9 +23,9 @@ public class OrdenRepositoryImp implements OrdenRepository {
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try(Connection conn = sql2o.open()){
-            List<OrdenEntity> ordenes = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
+            List<OrdenModel> ordenes = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " + "FROM orden")
-                    .executeAndFetch(OrdenEntity.class);
+                    .executeAndFetch(OrdenModel.class);
             List<Object> result = (List) ordenes;
             if(ordenes.isEmpty()){
                 return ResponseEntity.noContent().build();
@@ -41,10 +40,10 @@ public class OrdenRepositoryImp implements OrdenRepository {
     @Override
     public ResponseEntity<Object> findById(int id_orden) {
         try(Connection conn = sql2o.open()){
-            OrdenEntity orden = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
+            OrdenModel orden = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " + "FROM orden WHERE id_orden = :id_orden")
                     .addParameter("id_orden", id_orden)
-                    .executeAndFetchFirst(OrdenEntity.class);
+                    .executeAndFetchFirst(OrdenModel.class);
             if(orden == null){
                 return ResponseEntity.notFound().build();
             }
@@ -57,10 +56,10 @@ public class OrdenRepositoryImp implements OrdenRepository {
     @Override
     public ResponseEntity<List<Object>> findByCliente(int id_cliente) {
         try(Connection conn = sql2o.open()){
-            List<OrdenEntity> ordenes = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
+            List<OrdenModel> ordenes = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " + "FROM orden WHERE id_cliente = :id_cliente")
                     .addParameter("id_cliente", id_cliente)
-                    .executeAndFetch(OrdenEntity.class);
+                    .executeAndFetch(OrdenModel.class);
             List<Object> result = (List) ordenes;
             if(ordenes.isEmpty()){
                 return ResponseEntity.noContent().build();
@@ -72,7 +71,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
     }
 
     @Override
-    public ResponseEntity<Object> create(OrdenEntity orden) {
+    public ResponseEntity<Object> create(OrdenModel orden) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try(Connection conn = sql2o.open()) {
             Integer ordenId = (Integer) conn.createQuery("INSERT INTO orden (fecha_orden, total, estado ,id_cliente,ubicacion) VALUES (:fecha_orden, :total,:estado, :id_cliente,ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326))", true)
@@ -87,23 +86,23 @@ public class OrdenRepositoryImp implements OrdenRepository {
             orden = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
                             "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " + "FROM orden WHERE id_orden = :id_orden")
                     .addParameter("id_orden", ordenId)
-                    .executeAndFetchFirst(OrdenEntity.class);
+                    .executeAndFetchFirst(OrdenModel.class);
 
             orden.setFecha_orden(timestamp);
 
             if (orden.getEstado().equals("pagada")) {
 
                 // Recupera los productos y cantidades
-                List<Detalle_OrdenEntity> detalles = conn.createQuery("SELECT * FROM detalle_orden WHERE id_orden = :id_orden")
+                List<Detalle_OrdenModel> detalles = conn.createQuery("SELECT * FROM detalle_orden WHERE id_orden = :id_orden")
                         .addParameter("id_orden", orden.getId_orden())
-                        .executeAndFetch(Detalle_OrdenEntity.class);
+                        .executeAndFetch(Detalle_OrdenModel.class);
 
                 for (Integer i = 0; i < detalles.size(); i++) {
 
                     // Recupera producto
-                    ProductoEntity producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
+                    ProductoModel producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
                             .addParameter("id_producto", detalles.get(i).getId_producto())
-                            .executeAndFetchFirst(ProductoEntity.class);
+                            .executeAndFetchFirst(ProductoModel.class);
                     producto.setStock(producto.getStock() - detalles.get(i).getCantidad());
 
                     // Actualiza stock
@@ -125,7 +124,7 @@ public class OrdenRepositoryImp implements OrdenRepository {
     }
 
     @Override
-    public ResponseEntity<Object> update(OrdenEntity orden) {
+    public ResponseEntity<Object> update(OrdenModel orden) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try(Connection conn = sql2o.open()) {
             conn.createQuery("UPDATE orden SET fecha_orden = :fecha_orden, total = :total, estado= :estado, id_cliente = :id_cliente,ubicacion = ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326) WHERE id_orden = :id_orden")
@@ -141,23 +140,23 @@ public class OrdenRepositoryImp implements OrdenRepository {
             orden = conn.createQuery("SELECT id_orden, fecha_orden, estado, id_cliente, total," +
                             "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " + "FROM orden WHERE id_orden = :id_orden")
                     .addParameter("id_orden", orden.getId_orden())
-                    .executeAndFetchFirst(OrdenEntity.class);
+                    .executeAndFetchFirst(OrdenModel.class);
 
             orden.setFecha_orden(timestamp);
 
             if (orden.getEstado().equals("pagada")) {
 
                 // Recupera los productos y cantidades
-                List<Detalle_OrdenEntity> detalles = conn.createQuery("SELECT * FROM detalle_orden WHERE id_orden = :id_orden")
+                List<Detalle_OrdenModel> detalles = conn.createQuery("SELECT * FROM detalle_orden WHERE id_orden = :id_orden")
                         .addParameter("id_orden", orden.getId_orden())
-                        .executeAndFetch(Detalle_OrdenEntity.class);
+                        .executeAndFetch(Detalle_OrdenModel.class);
 
                 for (Integer i = 0; i < detalles.size(); i++) {
 
                     // Recupera producto
-                    ProductoEntity producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
+                    ProductoModel producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
                             .addParameter("id_producto", detalles.get(i).getId_producto())
-                            .executeAndFetchFirst(ProductoEntity.class);
+                            .executeAndFetchFirst(ProductoModel.class);
                     producto.setStock(producto.getStock() - detalles.get(i).getCantidad());
 
                     // Actualiza stock

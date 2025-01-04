@@ -2,7 +2,7 @@ package proyecto.utils;
 
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Repository;
-import proyecto.entities.ClienteEntity;
+import proyecto.models.ClienteModel;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -16,12 +16,12 @@ public class JwtMiddlewareService{
         this.secretKey = secretKey;
     }
 
-    public String generateToken(ClienteEntity clienteEntity){
+    public String generateToken(ClienteModel clienteModel){
         Date expiration_date = new Date(System.currentTimeMillis() + 86400000);
         return Jwts
                 .builder()
-                .claim("user_id", clienteEntity.getId_cliente())
-                .claim("name", clienteEntity.getNombre())
+                .claim("user_id", clienteModel.getId())
+                .claim("name", clienteModel.getNombre())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(expiration_date)
                 .signWith(secretKey)
@@ -49,7 +49,7 @@ public class JwtMiddlewareService{
         }
     }
 
-    public ClienteEntity decodeJWT(String token){
+    public ClienteModel decodeJWT(String token){
         Claims claims = Jwts
                 .parser()
                 .verifyWith(secretKey)
@@ -59,9 +59,9 @@ public class JwtMiddlewareService{
         Long id = claims.get("user_id", Long.class);
         String username = claims.get("name", String.class);
 
-        ClienteEntity clienteEntity = new ClienteEntity();
-        clienteEntity.setId_cliente(id.intValue());
-        clienteEntity.setNombre(username);
-        return clienteEntity;
+        ClienteModel clienteModel = new ClienteModel();
+        clienteModel.setId(id);
+        clienteModel.setNombre(username);
+        return clienteModel;
     }
 }

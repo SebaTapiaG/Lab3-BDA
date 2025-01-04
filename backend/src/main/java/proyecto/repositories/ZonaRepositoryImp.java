@@ -6,8 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import proyecto.entities.ProductoEntity;
-import proyecto.entities.ZonaEntity;
+import proyecto.models.ZonaModel;
 
 import java.util.List;
 
@@ -19,8 +18,8 @@ public class ZonaRepositoryImp implements ZonaRepository {
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try (Connection conn = sql2o.open()) {
-            List<ZonaEntity> zonas = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas")
-                    .executeAndFetch(ZonaEntity.class);
+            List<ZonaModel> zonas = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas")
+                    .executeAndFetch(ZonaModel.class);
             List<Object> result = (List) zonas;
             if (zonas.isEmpty()) {
                 return ResponseEntity.noContent().build(); // 204 No Content si no hay resultados
@@ -37,9 +36,9 @@ public class ZonaRepositoryImp implements ZonaRepository {
         // Validar el token si es necesario
         try (Connection conn = sql2o.open()) {
             // Consultar la base de datos para obtener el producto por su ID
-            ZonaEntity zona = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas WHERE id_zona = :id_zona")
+            ZonaModel zona = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas WHERE id_zona = :id_zona")
                     .addParameter("id_zona", id_zona)
-                    .executeAndFetchFirst(ZonaEntity.class);
+                    .executeAndFetchFirst(ZonaModel.class);
 
             // Si el producto existe, devolverlo con un código 200 OK
             if (zona != null) {
@@ -58,9 +57,9 @@ public class ZonaRepositoryImp implements ZonaRepository {
     @Override
     public ResponseEntity<List<Object>> findByEstado(String estado) {
         try (Connection conn = sql2o.open()) {
-            List<ZonaEntity> zonas = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas WHERE estado = :estado")
+            List<ZonaModel> zonas = conn.createQuery("SELECT id_zona, nombre, estado, ST_AsText(area) AS area FROM zonas WHERE estado = :estado")
                     .addParameter("estado", estado)
-                    .executeAndFetch(ZonaEntity.class);
+                    .executeAndFetch(ZonaModel.class);
             List<Object> result = (List) zonas;
             if (zonas.isEmpty()) {
                 return ResponseEntity.noContent().build(); // 204 No Content si no hay resultados
@@ -73,7 +72,7 @@ public class ZonaRepositoryImp implements ZonaRepository {
     }
 
     @Override
-    public ResponseEntity<Object> create(ZonaEntity zona) {
+    public ResponseEntity<Object> create(ZonaModel zona) {
         try (Connection conn = sql2o.open()) {
             int id_zona = (int) conn.createQuery(
                             "INSERT INTO zonas (nombre, estado, area) " +
@@ -98,7 +97,7 @@ public class ZonaRepositoryImp implements ZonaRepository {
      * @return ResponseEntity con el objeto actualizado o un mensaje de error.
      */
     @Override
-    public ResponseEntity<Object> update(ZonaEntity zona) {
+    public ResponseEntity<Object> update(ZonaModel zona) {
         try (Connection conn = sql2o.open()) {
             int rowsAffected = conn.createQuery(
                             "UPDATE zonas SET " +

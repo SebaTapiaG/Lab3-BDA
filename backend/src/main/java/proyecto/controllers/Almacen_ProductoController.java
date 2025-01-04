@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import proyecto.entities.Almacen_ProductoEntity;
 import proyecto.service.Almacen_ProductoService;
 
 import java.util.List;
@@ -31,12 +30,12 @@ public class Almacen_ProductoController {
     }
 
     @GetMapping("/create")
-    public ResponseEntity<Object> create(Almacen_ProductoEntity almacen_producto){
+    public ResponseEntity<Object> create(Almacen_ProductoModel almacen_producto){
         return almacen_productoService.create(almacen_producto);
     }
 
     @GetMapping("/update")
-    public ResponseEntity<Object> update(Almacen_ProductoEntity almacen_producto){
+    public ResponseEntity<Object> update(Almacen_ProductoModel almacen_producto){
         return almacen_productoService.update(almacen_producto);
     }
 

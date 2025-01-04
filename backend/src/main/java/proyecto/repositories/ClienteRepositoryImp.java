@@ -5,10 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import proyecto.entities.ClienteEntity;
+import proyecto.models.ClienteModel;
 import proyecto.service.GeocodingService;
 import proyecto.utils.InputVerificationService;
 import proyecto.utils.JwtMiddlewareService;
@@ -35,10 +32,10 @@ public class ClienteRepositoryImp implements ClienteRepository{
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try (Connection conn = sql2o.open()) {
-            List<ClienteEntity> clientes = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
+            List<ClienteModel> clientes = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
                             "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " +
                             "FROM Cliente")
-                    .executeAndFetch(ClienteEntity.class);
+                    .executeAndFetch(ClienteModel.class);
             List<Object> result = (List) clientes;
             if (clientes.isEmpty()) {
                 return ResponseEntity.noContent().build();
@@ -52,11 +49,11 @@ public class ClienteRepositoryImp implements ClienteRepository{
     @Override
     public ResponseEntity<Object> findById(int id_cliente) {
         try (Connection conn = sql2o.open()) {
-            ClienteEntity cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
+            ClienteModel cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " +
                     "FROM Cliente WHERE id_cliente = :id_cliente")
                     .addParameter("id_cliente", id_cliente)
-                    .executeAndFetchFirst(ClienteEntity.class);
+                    .executeAndFetchFirst(ClienteModel.class);
             if (cliente == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -69,11 +66,11 @@ public class ClienteRepositoryImp implements ClienteRepository{
     @Override
     public ResponseEntity<Object> findByEmail(String email) {
         try (Connection conn = sql2o.open()) {
-            ClienteEntity cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna,email, telefono, " +
+            ClienteModel cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna,email, telefono, " +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " +
                     "FROM Cliente WHERE email = :email")
                     .addParameter("email", email)
-                    .executeAndFetchFirst(ClienteEntity.class);
+                    .executeAndFetchFirst(ClienteModel.class);
             if (cliente == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -86,11 +83,11 @@ public class ClienteRepositoryImp implements ClienteRepository{
     @Override
     public ResponseEntity<Object> findByName(String name) {
         try (Connection conn = sql2o.open()) {
-            ClienteEntity cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
+            ClienteModel cliente = conn.createQuery("SELECT id_cliente, nombre, contrasena, direccion, comuna, email, telefono, " +
                     "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud " +
                     "FROM Cliente cliente WHERE nombre = :nombre")
                     .addParameter("nombre", name)
-                    .executeAndFetchFirst(ClienteEntity.class);
+                    .executeAndFetchFirst(ClienteModel.class);
             if (cliente == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -101,7 +98,7 @@ public class ClienteRepositoryImp implements ClienteRepository{
     }
 
     @Override
-    public ResponseEntity<Object> createUser(ClienteEntity user) {
+    public ResponseEntity<Object> createUser(ClienteModel user) {
         try (Connection connection = sql2o.open()) {
             if (!InputVerificationService.validateInput(user.getNombre()) ||
                     !InputVerificationService.validateInput(user.getEmail()) ||
@@ -148,7 +145,7 @@ public class ClienteRepositoryImp implements ClienteRepository{
     }
 
     @Override
-    public ResponseEntity<Object> update(ClienteEntity cliente) {
+    public ResponseEntity<Object> update(ClienteModel cliente) {
         try (Connection conn = sql2o.open()) {
 
 
@@ -212,7 +209,7 @@ public class ClienteRepositoryImp implements ClienteRepository{
             return ResponseEntity.badRequest().body("Error al iniciar sesión: caracteres no permitidos.");
         }
         try {
-            ClienteEntity user = (ClienteEntity) findByEmail(email).getBody();
+            ClienteModel user = (ClienteModel) findByEmail(email).getBody();
             if (user == null) {
                 return ResponseEntity.status(401).body("Usuario no encontrado.");
             }

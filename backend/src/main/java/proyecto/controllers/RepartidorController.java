@@ -3,7 +3,7 @@ package proyecto.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import proyecto.entities.RepartidorEntity;
+import proyecto.models.RepartidorModel;
 import proyecto.service.RepartidorService;
 
 import java.util.List;
@@ -31,12 +31,12 @@ public class RepartidorController {
     }
 
     @GetMapping("/almacen/{id}")
-    public ResponseEntity<List<RepartidorEntity>> findByAlmacen(@PathVariable Integer id){
+    public ResponseEntity<List<RepartidorModel>> findByAlmacen(@PathVariable Integer id){
         return repartidorService.findByAlmacen(id);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody RepartidorEntity repartidor){
+    public ResponseEntity<Object> update(@RequestBody RepartidorModel repartidor){
         return repartidorService.update(repartidor);
     }
 
@@ -46,12 +46,12 @@ public class RepartidorController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody RepartidorEntity repartidor){
+    public ResponseEntity<Object> register(@RequestBody RepartidorModel repartidor){
         return repartidorService.register(repartidor);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody RepartidorEntity repartidor){
+    public ResponseEntity<Object> login(@RequestBody RepartidorModel repartidor){
         return repartidorService.login(repartidor);
     }
 

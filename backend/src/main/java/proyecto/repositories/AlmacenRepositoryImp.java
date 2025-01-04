@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import proyecto.entities.AlmacenEntity;
 
 import java.util.List;
 
@@ -17,10 +16,10 @@ public class AlmacenRepositoryImp implements AlmacenRepository{
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try(Connection conn = sql2o.open()){
-            List<AlmacenEntity> almacenes = conn.createQuery("SELECT id_almacen, nombre_almacen," +
+            List<AlmacenModel> almacenes = conn.createQuery("SELECT id_almacen, nombre_almacen," +
                             "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud "+
                             "FROM almacen")
-                    .executeAndFetch(AlmacenEntity.class);
+                    .executeAndFetch(AlmacenModel.class);
             List<Object> result = (List) almacenes;
             if(almacenes.isEmpty()){
                 return ResponseEntity.noContent().build();
@@ -34,11 +33,11 @@ public class AlmacenRepositoryImp implements AlmacenRepository{
     @Override
     public ResponseEntity<Object> findById(int id_almacen) {
         try(Connection conn = sql2o.open()){
-            AlmacenEntity almacen = conn.createQuery("SELECT id_almacen, nombre_almacen," +
+            AlmacenModel almacen = conn.createQuery("SELECT id_almacen, nombre_almacen," +
                             "ST_Y(ubicacion::geometry) AS latitud, ST_X(ubicacion::geometry) AS longitud "+
                             "FROM almacen WHERE id_almacen = :id_almacen")
                     .addParameter("id_almacen", id_almacen)
-                    .executeAndFetchFirst(AlmacenEntity.class);
+                    .executeAndFetchFirst(AlmacenModel.class);
             if(almacen == null){
                 return ResponseEntity.notFound().build();
             }
@@ -49,7 +48,7 @@ public class AlmacenRepositoryImp implements AlmacenRepository{
     }
 
     @Override
-    public ResponseEntity<Object> create(AlmacenEntity almacen) {
+    public ResponseEntity<Object> create(AlmacenModel almacen) {
         try(Connection conn = sql2o.open()){
             conn.createQuery("INSERT INTO almacen (nombre_almacen, ubicacion) " +
                             "VALUES (:nombre_almacen, ST_SetSRID(ST_MakePoint(:longitud, :latitud), 4326)::geography)",
@@ -65,7 +64,7 @@ public class AlmacenRepositoryImp implements AlmacenRepository{
     }
 
     @Override
-    public ResponseEntity<Object> update(AlmacenEntity almacen){
+    public ResponseEntity<Object> update(AlmacenModel almacen){
         try(Connection conn = sql2o.open()){
             conn.createQuery("UPDATE almacen " +
                             "SET nombre_almacen = :nombre_almacen," +

@@ -3,7 +3,7 @@ package proyecto.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.service.CategoriaService;
-import proyecto.entities.CategoriaEntity;
+import proyecto.models.CategoriaModel;
 
 import java.util.List;
 
@@ -28,12 +28,12 @@ public class CategoriaController {
     }
 
     @GetMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody CategoriaEntity categoria) {
+    public ResponseEntity<Object> create(@RequestBody CategoriaModel categoria) {
         return categoriaService.create(categoria);
     }
 
     @PutMapping("/")
-    public ResponseEntity<Object> update(@RequestBody CategoriaEntity categoria) {
+    public ResponseEntity<Object> update(@RequestBody CategoriaModel categoria) {
         return categoriaService.update(categoria);
     }
 

@@ -2,19 +2,19 @@ package proyecto.repositories;
 import org.springframework.data.mongodb.repository.MongoRepository;
 //import org.springframework.http.ResponseEntity;
 //import proyecto.dto.ProductoMasCompradoDTO;
-import proyecto.entities.ProductoEntity;
+import proyecto.models.ProductoModel;
 
 import java.util.List;
 
-public interface ProductoRepository extends MongoRepository<ProductoEntity, String> {
+public interface ProductoRepository extends MongoRepository<ProductoModel, String> {
 
     //List<ProductoEntity> findAll();  // MongoRepository ya tiene este método por defecto
 
-    ProductoEntity findById(String id_producto);  // Cambiar a String si usas ID como String en Mongo
+    ProductoModel findById(String id_producto);  // Cambiar a String si usas ID como String en Mongo
 
-    ProductoEntity findByNombre(String nombre);
+    ProductoModel findByNombre(String nombre);
 
-    List<ProductoEntity> findByCategoria(int id_categoria);
+    List<ProductoModel> findByCategoria(int id_categoria);
 
     // No es necesario tener create y update aquí, puedes usar los métodos de MongoRepository directamente
     // MongoRepository ya tiene save() para crear o actualizar

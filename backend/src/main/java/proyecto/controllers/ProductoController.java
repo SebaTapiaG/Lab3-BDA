@@ -3,10 +3,8 @@ package proyecto.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.dto.ProductoMasCompradoDTO;
-import proyecto.entities.ProductoEntity;
+import proyecto.models.ProductoModel;
 import proyecto.service.ProductoService;
-import proyecto.service.CategoriaService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria/{id_categoria}")
-    public ResponseEntity<List<ProductoEntity>> findByCategoria(@PathVariable int id_categoria){
+    public ResponseEntity<List<ProductoModel>> findByCategoria(@PathVariable int id_categoria){
         return productoService.findByCategoria(id_categoria);
     }
 
@@ -40,7 +38,7 @@ public class ProductoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody ProductoEntity producto){
+    public ResponseEntity<Object> create(@RequestBody ProductoModel producto){
         return productoService.create(producto);
     }
 
@@ -52,7 +50,7 @@ public class ProductoController {
      
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody ProductoEntity producto){
+    public ResponseEntity<Object> update(@RequestBody ProductoModel producto){
         return productoService.update(producto);
     }
 

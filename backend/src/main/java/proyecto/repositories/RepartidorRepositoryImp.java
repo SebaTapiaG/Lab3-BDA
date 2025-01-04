@@ -5,12 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import proyecto.entities.ClienteEntity;
-import proyecto.entities.RepartidorEntity;
+import proyecto.models.RepartidorModel;
 import proyecto.utils.InputVerificationService;
-import proyecto.utils.JwtMiddlewareService;
 
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -21,10 +18,10 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     @Override
     public ResponseEntity<Object> findByNombre(String name) {
         try (Connection conn = sql2o.open()) {
-            RepartidorEntity repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
+            RepartidorModel repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
                             "FROM Repartidor repartidor WHERE nombre = :nombre")
                     .addParameter("nombre", name)
-                    .executeAndFetchFirst(RepartidorEntity.class);
+                    .executeAndFetchFirst(RepartidorModel.class);
             if (repartidor == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -37,10 +34,10 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     @Override
     public ResponseEntity<Object> findByEmail(String email) {
         try (Connection conn = sql2o.open()) {
-            RepartidorEntity repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
+            RepartidorModel repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
                             "FROM Repartidor WHERE email = :email")
                     .addParameter("email", email)
-                    .executeAndFetchFirst(RepartidorEntity.class);
+                    .executeAndFetchFirst(RepartidorModel.class);
             if (repartidor == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -53,10 +50,10 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     @Override
     public ResponseEntity<Object> findById(int id_repartidor) {
         try (Connection conn = sql2o.open()) {
-            RepartidorEntity repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
+            RepartidorModel repartidor = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
                             "FROM Repartidor WHERE id_repartidor = :id_repartidor")
                     .addParameter("id_repartidor", id_repartidor)
-                    .executeAndFetchFirst(RepartidorEntity.class);
+                    .executeAndFetchFirst(RepartidorModel.class);
             if (repartidor == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -69,9 +66,9 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try (Connection conn = sql2o.open()) {
-            List<RepartidorEntity> repartidores = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
+            List<RepartidorModel> repartidores = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
                             "FROM Repartidor")
-                    .executeAndFetch(RepartidorEntity.class);
+                    .executeAndFetch(RepartidorModel.class);
             if (repartidores.isEmpty()) {
                 return ResponseEntity.noContent().build();
             }
@@ -82,13 +79,13 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     }
 
     @Override
-    public ResponseEntity<List<RepartidorEntity>> findByAlmacen(int idAlmacen) {
+    public ResponseEntity<List<RepartidorModel>> findByAlmacen(int idAlmacen) {
         try (Connection conn = sql2o.open()) {
             // Cambiar executeAndFetchFirst por executeAndFetch para obtener todos los repartidores
-            List<RepartidorEntity> repartidores = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
+            List<RepartidorModel> repartidores = conn.createQuery("SELECT id_repartidor, nombre, contrasena, email, telefono, id_almacen" +
                             " FROM Repartidor WHERE id_almacen = :idAlmacen")
                     .addParameter("id_almacen", idAlmacen)
-                    .executeAndFetch(RepartidorEntity.class);
+                    .executeAndFetch(RepartidorModel.class);
 
             if (repartidores.isEmpty()) {
                 return ResponseEntity.status(404).body(null); // Si no hay repartidores, devolver 404
@@ -101,7 +98,7 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     }
 
     @Override
-    public ResponseEntity<Object> update(RepartidorEntity repartidor) {
+    public ResponseEntity<Object> update(RepartidorModel repartidor) {
         try (Connection conn = sql2o.open()) {
             int rowsAffected = conn.createQuery(
                             "UPDATE repartidor " +
@@ -147,7 +144,7 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
     }
 
     @Override
-    public ResponseEntity<Object> register(RepartidorEntity repartidor) {
+    public ResponseEntity<Object> register(RepartidorModel repartidor) {
         try (Connection connection = sql2o.open()) {
             // Validación de entradas
             if (!InputVerificationService.validateInput(repartidor.getNombre()) ||
@@ -196,7 +193,7 @@ public class RepartidorRepositoryImp implements RepartidorRepository {
         }
 
         try {
-            RepartidorEntity repartidor = (RepartidorEntity) findByEmail(email).getBody();
+            RepartidorModel repartidor = (RepartidorModel) findByEmail(email).getBody();
 
             if (repartidor == null) {
                 return ResponseEntity.status(401).body("Repartidor no encontrado."); // 401 si no se encuentra el repartidor

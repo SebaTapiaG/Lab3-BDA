@@ -2,7 +2,7 @@ package proyecto.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import proyecto.entities.ClienteEntity;
+import proyecto.models.ClienteModel;
 import proyecto.service.ClienteService;
 
 import java.util.List;
@@ -35,17 +35,17 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> loginUser(@RequestBody ClienteEntity user) {
+    public ResponseEntity<Object> loginUser(@RequestBody ClienteModel user) {
         return clienteService.loginUser(user.getEmail(), user.getContrasena());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> createUser(@RequestBody ClienteEntity user) {
+    public ResponseEntity<Object> createUser(@RequestBody ClienteModel user) {
         return clienteService.createUser(user);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> update(@RequestBody ClienteEntity cliente) {
+    public ResponseEntity<?> update(@RequestBody ClienteModel cliente) {
         return clienteService.update(cliente);
     }
 

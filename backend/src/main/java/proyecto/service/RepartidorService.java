@@ -3,7 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.entities.RepartidorEntity;
+import proyecto.models.RepartidorModel;
 import proyecto.repositories.RepartidorRepository;
 
 import java.util.List;
@@ -29,11 +29,11 @@ public class RepartidorService {
         return repartidorRepository.findByEmail(email);
     }
 
-    public ResponseEntity<List<RepartidorEntity>> findByAlmacen(int idAlmacen){
+    public ResponseEntity<List<RepartidorModel>> findByAlmacen(int idAlmacen){
         return repartidorRepository.findByAlmacen(idAlmacen);
     }
 
-    public ResponseEntity<Object> update(RepartidorEntity repartidor){
+    public ResponseEntity<Object> update(RepartidorModel repartidor){
         return repartidorRepository.update(repartidor);
     }
 
@@ -41,11 +41,11 @@ public class RepartidorService {
         return repartidorRepository.delete(id);
     }
 
-    public ResponseEntity<Object> register(RepartidorEntity repartidor){
+    public ResponseEntity<Object> register(RepartidorModel repartidor){
         return repartidorRepository.register(repartidor);
     }
 
-    public ResponseEntity<Object> login(RepartidorEntity repartidor){
+    public ResponseEntity<Object> login(RepartidorModel repartidor){
         return repartidorRepository.login(repartidor.getEmail(), repartidor.getContrasena());
     }
 

@@ -3,7 +3,6 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.entities.AlmacenEntity;
 import proyecto.repositories.AlmacenRepository;
 
 import java.util.List;
@@ -20,11 +19,11 @@ public class AlmacenService {
         return almacenRepository.findById(id_almacen);
     }
 
-    public ResponseEntity<Object> create(AlmacenEntity almacen){
+    public ResponseEntity<Object> create(AlmacenModel almacen){
         return almacenRepository.create(almacen);
     }
 
-    public ResponseEntity<Object> update(AlmacenEntity almacen){
+    public ResponseEntity<Object> update(AlmacenModel almacen){
         return almacenRepository.update(almacen);
     }
 

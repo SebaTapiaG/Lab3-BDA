@@ -1,6 +1,11 @@
-package proyecto.entities;
+package proyecto.models;
 
-public class RepartidorEntity {
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Repartidor")
+public class RepartidorModel {
 
     /* Atributos
     Campo Tipo de dato Descripción
@@ -11,7 +16,8 @@ public class RepartidorEntity {
     telefono VARCHAR(20) Teléfono de contacto
      */
 
-    private int id_repartidor;
+    @Id
+    private Object id;
     private String nombre;
 
     private String contrasena;
@@ -19,24 +25,12 @@ public class RepartidorEntity {
     private String telefono;
     private int id_almacen;
 
-    public RepartidorEntity(int id_repartidor, String nombre, String contrasena, String email, String telefono, int id_almacen) {
-        this.id_repartidor = id_repartidor;
-        this.nombre = nombre;
-        this.contrasena = contrasena;
-        this.email = email;
-        this.telefono = telefono;
-        this.id_almacen = id_almacen;
+    public Object getId() {
+        return id;
     }
 
-    public RepartidorEntity() {
-    }
-
-    public int getId_repartidor() {
-        return id_repartidor;
-    }
-
-    public void setId_repartidor(int id_repartidor) {
-        this.id_repartidor = id_repartidor;
+    public void setId(Object id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -45,6 +39,14 @@ public class RepartidorEntity {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getEmail() {
@@ -63,17 +65,10 @@ public class RepartidorEntity {
         this.telefono = telefono;
     }
 
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
     public int getId_almacen() {
         return id_almacen;
     }
+
     public void setId_almacen(int id_almacen) {
         this.id_almacen = id_almacen;
     }

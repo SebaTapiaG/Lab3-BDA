@@ -3,13 +3,12 @@ package proyecto.repositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import proyecto.dto.ProductoMasCompradoDTO;
-import proyecto.entities.ProductoEntity;
+import proyecto.models.ProductoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import java.util.Collections;
 import java.util.List;
 
 
@@ -26,8 +25,8 @@ public class ProductoRepositoryImp implements ProductoRepository {
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try (Connection conn = sql2o.open()) {
-            List<ProductoEntity> productos = conn.createQuery("SELECT * FROM producto")
-                    .executeAndFetch(ProductoEntity.class);
+            List<ProductoModel> productos = conn.createQuery("SELECT * FROM producto")
+                    .executeAndFetch(ProductoModel.class);
             List<Object> result = (List) productos;
             if (productos.isEmpty()) {
                 return ResponseEntity.noContent().build(); // 204 No Content si no hay resultados
@@ -44,9 +43,9 @@ public class ProductoRepositoryImp implements ProductoRepository {
         // Validar el token si es necesario
             try (Connection conn = sql2o.open()) {
                 // Consultar la base de datos para obtener el producto por su ID
-                ProductoEntity producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
+                ProductoModel producto = conn.createQuery("SELECT * FROM producto WHERE id_producto = :id_producto")
                         .addParameter("id_producto", id_producto)
-                        .executeAndFetchFirst(ProductoEntity.class);
+                        .executeAndFetchFirst(ProductoModel.class);
 
                 // Si el producto existe, devolverlo con un código 200 OK
                 if (producto != null) {
@@ -66,9 +65,9 @@ public class ProductoRepositoryImp implements ProductoRepository {
     @Override
     public ResponseEntity<Object> findByNombre(String name) {
         try (Connection conn = sql2o.open()) {
-            ProductoEntity producto = conn.createQuery("SELECT * FROM producto WHERE nombre = :nombre")
+            ProductoModel producto = conn.createQuery("SELECT * FROM producto WHERE nombre = :nombre")
                     .addParameter("nombre", name)
-                    .executeAndFetchFirst(ProductoEntity.class);
+                    .executeAndFetchFirst(ProductoModel.class);
             if (producto == null) {
                 return ResponseEntity.status(404).body(null);
             }
@@ -79,11 +78,11 @@ public class ProductoRepositoryImp implements ProductoRepository {
     }
 
     @Override
-    public ResponseEntity<List<ProductoEntity>> findByCategoria(int id_categoria) {
+    public ResponseEntity<List<ProductoModel>> findByCategoria(int id_categoria) {
         try (Connection conn = sql2o.open()) {
-            List<ProductoEntity> productos = conn.createQuery("SELECT * FROM producto WHERE id_categoria = :id_categoria")
+            List<ProductoModel> productos = conn.createQuery("SELECT * FROM producto WHERE id_categoria = :id_categoria")
                     .addParameter("id_categoria", id_categoria)
-                    .executeAndFetch(ProductoEntity.class);
+                    .executeAndFetch(ProductoModel.class);
 
             if (productos.isEmpty()) {
                 return ResponseEntity.noContent().build();
@@ -124,7 +123,7 @@ public class ProductoRepositoryImp implements ProductoRepository {
 
 
     @Override
-    public ResponseEntity<Object> create(ProductoEntity producto) {
+    public ResponseEntity<Object> create(ProductoModel producto) {
         try (Connection conn = sql2o.open()) {
             conn.createQuery("INSERT INTO producto (nombre, precio, stock, id_categoria) VALUES (:nombre, :precio, :stock, :id_categoria)", true)
                     .addParameter("nombre", producto.getNombre())
@@ -139,7 +138,7 @@ public class ProductoRepositoryImp implements ProductoRepository {
     }
 
     @Override
-    public ResponseEntity<Object> update(ProductoEntity producto) {
+    public ResponseEntity<Object> update(ProductoModel producto) {
         try (Connection conn = sql2o.open()) {
             conn.createQuery("UPDATE producto SET nombre = :nombre, precio = :precio, stock = :stock, id_categoria = :id_categoria WHERE id_producto = :id_producto")
                     .addParameter("nombre", producto.getNombre())

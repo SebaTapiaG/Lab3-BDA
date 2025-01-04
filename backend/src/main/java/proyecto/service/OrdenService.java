@@ -3,8 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.dto.RepartidorDTO;
-import proyecto.entities.OrdenEntity;
+import proyecto.models.OrdenModel;
 import proyecto.repositories.OrdenRepository;
 
 import java.util.List;
@@ -15,29 +14,29 @@ public class OrdenService {
     @Autowired
     private OrdenRepository ordenRepository;
 
-    public ResponseEntity<List<OrdenEntity>> findAll() {
-        List<OrdenEntity> ordenes = ordenRepository.findAll();
+    public ResponseEntity<List<OrdenModel>> findAll() {
+        List<OrdenModel> ordenes = ordenRepository.findAll();
         if (ordenes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(ordenes);
     }
 
-    public ResponseEntity<OrdenEntity> findById(String id_orden) {
+    public ResponseEntity<OrdenModel> findById(String id_orden) {
         return ordenRepository.findById(id_orden)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public ResponseEntity<OrdenEntity> create(OrdenEntity orden) {
-        OrdenEntity createdOrder = ordenRepository.save(orden);
+    public ResponseEntity<OrdenModel> create(OrdenModel orden) {
+        OrdenModel createdOrder = ordenRepository.save(orden);
         return ResponseEntity.ok(createdOrder);
     }
 
-    public ResponseEntity<OrdenEntity> update(OrdenEntity orden) {
+    public ResponseEntity<OrdenModel> update(OrdenModel orden) {
         // Si la orden existe, se actualiza. Si no, puedes lanzar un error.
         if (ordenRepository.existsById(orden.getId())) {
-            OrdenEntity updatedOrder = ordenRepository.save(orden);
+            OrdenModel updatedOrder = ordenRepository.save(orden);
             return ResponseEntity.ok(updatedOrder);
         } else {
             return ResponseEntity.notFound().build();

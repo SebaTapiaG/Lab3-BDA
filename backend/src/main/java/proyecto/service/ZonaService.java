@@ -3,9 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.dto.ProductoMasCompradoDTO;
-import proyecto.entities.ProductoEntity;
-import proyecto.entities.ZonaEntity;
+import proyecto.models.ZonaModel;
 import proyecto.repositories.ZonaRepository;
 
 import java.util.List;
@@ -28,10 +26,10 @@ public class ZonaService {
         return zonaRepository.findByEstado(estado);
     }
 
-    public ResponseEntity <Object> create(ZonaEntity zona) {
+    public ResponseEntity <Object> create(ZonaModel zona) {
         return zonaRepository.create(zona);
     }
-    public ResponseEntity<Object>  update(ZonaEntity zona) {
+    public ResponseEntity<Object>  update(ZonaModel zona) {
         return zonaRepository.update(zona);
     }
 

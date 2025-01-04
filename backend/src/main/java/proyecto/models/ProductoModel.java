@@ -1,36 +1,27 @@
-package proyecto.entities;
+package proyecto.models;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "productos")
-public class ProductoEntity {
+@Document(collection = "Producto")
+public class ProductoModel {
 
     @Id // Identificador único en MongoDB
-    private String id; // MongoDB utiliza un identificador de tipo String por defecto
+    private ObjectId id;
     private String nombre;
     private String descripcion;
     private double precio;
     private int stock;
     private String estado; // Puede ser "disponible" o "agotado"
-    private String idCategoria; // Relación con la categoría (referencia)
+    private CategoriaModel categoria; // Relación con la categoría (referencia)
 
-    // Constructor
-    public ProductoEntity(String nombre, String descripcion, double precio, int stock, String estado, String idCategoria) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.stock = stock;
-        this.estado = estado;
-        this.idCategoria = idCategoria;
-    }
-
-    // Getters y Setters
-    public String getId() {
+    // Getters y setters
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -74,11 +65,11 @@ public class ProductoEntity {
         this.estado = estado;
     }
 
-    public String getIdCategoria() {
-        return idCategoria;
+    public CategoriaModel getCategoria() {
+        return categoria;
     }
 
-    public void setIdCategoria(String idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setCategoria(CategoriaModel categoria) {
+        this.categoria = categoria;
     }
 }

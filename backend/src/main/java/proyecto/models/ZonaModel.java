@@ -1,29 +1,24 @@
-package proyecto.entities;
+package proyecto.models;
 
-public class ZonaEntity {
-    private int id_zona; // Clave primaria
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "Zona")
+public class ZonaModel {
+    @Id
+    private ObjectId id; // Clave primaria
     private String nombre; // Nombre de la zona
     private String estado; // Estado de la zona (activo, inactivo, etc.)
     private String area; // Representación WKT (Well-Known Text) del POLYGON
 
-    // Constructor por defecto
-    public ZonaEntity() {}
 
-    // Constructor con parámetros
-    public ZonaEntity(int id_zona, String nombre, String estado, String area) {
-        this.id_zona = id_zona;
-        this.nombre = nombre;
-        this.estado = estado;
-        this.area = area;
+    public ObjectId getId() {
+        return id;
     }
 
-    // Getters y Setters
-    public int getId() {
-        return id_zona;
-    }
-
-    public void setId(int id_zona) {
-        this.id_zona = id_zona;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -46,7 +41,7 @@ public class ZonaEntity {
         return area;
     }
 
-    public void setAreaWkt(String area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
@@ -54,7 +49,7 @@ public class ZonaEntity {
     @Override
     public String toString() {
         return "ZonaEntity{" +
-                "id=" + id_zona +
+                "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", estado='" + estado + '\'' +
                 ", area='" + area + '\'' +

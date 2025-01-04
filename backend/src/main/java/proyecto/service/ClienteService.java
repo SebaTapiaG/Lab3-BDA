@@ -3,7 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.entities.ClienteEntity;
+import proyecto.models.ClienteModel;
 import proyecto.repositories.ClienteRepository;
 
 import java.util.List;
@@ -16,8 +16,8 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     // Recupera todos los clientes
-    public ResponseEntity<List<ClienteEntity>> findAll() {
-        List<ClienteEntity> clientes = clienteRepository.findAll();
+    public ResponseEntity<List<ClienteModel>> findAll() {
+        List<ClienteModel> clientes = clienteRepository.findAll();
         if (clientes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -25,38 +25,38 @@ public class ClienteService {
     }
 
     // Recupera un cliente por su ID
-    public ResponseEntity<ClienteEntity> findById(String id_cliente) {
-        Optional<ClienteEntity> cliente = clienteRepository.findById(id_cliente);
+    public ResponseEntity<ClienteModel> findById(String id_cliente) {
+        Optional<ClienteModel> cliente = clienteRepository.findById(id_cliente);
         return cliente.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Recupera un cliente por su nombre
-    public ResponseEntity<ClienteEntity> findByName(String name) {
-        Optional<ClienteEntity> cliente = clienteRepository.findByName(name);
+    public ResponseEntity<ClienteModel> findByName(String name) {
+        Optional<ClienteModel> cliente = clienteRepository.findByName(name);
         return cliente.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Crea un nuevo cliente
-    public ResponseEntity<ClienteEntity> createUser(ClienteEntity cliente) {
-        ClienteEntity createdCliente = clienteRepository.save(cliente);
+    public ResponseEntity<ClienteModel> createUser(ClienteModel cliente) {
+        ClienteModel createdCliente = clienteRepository.save(cliente);
         return ResponseEntity.ok(createdCliente);
     }
 
     // Recupera un cliente por su correo electrónico
-    public ResponseEntity<ClienteEntity> findByEmail(String email) {
-        Optional<ClienteEntity> cliente = clienteRepository.findByEmail(email);
+    public ResponseEntity<ClienteModel> findByEmail(String email) {
+        Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
         return cliente.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Actualiza un cliente
-    public ResponseEntity<ClienteEntity> update(ClienteEntity cliente) {
+    public ResponseEntity<ClienteModel> update(ClienteModel cliente) {
         if (!clienteRepository.existsById(cliente.getId_cliente())) {
             return ResponseEntity.notFound().build();
         }
-        ClienteEntity updatedCliente = clienteRepository.save(cliente);
+        ClienteModel updatedCliente = clienteRepository.save(cliente);
         return ResponseEntity.ok(updatedCliente);
     }
 
@@ -71,7 +71,7 @@ public class ClienteService {
 
     // Realiza el login de un cliente
     public ResponseEntity<Object> loginUser(String email, String password) {
-        Optional<ClienteEntity> cliente = clienteRepository.findByEmail(email);
+        Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
         if (cliente.isPresent() && cliente.get().getContrasena().equals(password)) {
             return ResponseEntity.ok(cliente.get());
         }

@@ -1,41 +1,30 @@
-package proyecto.entities;
+package proyecto.models;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 
-@Document(collection = "ordenes") // Indica que esta clase representa una colección en MongoDB
-public class OrdenEntity {
+@Document(collection = "Orden") // Indica que esta clase representa una colección en MongoDB
+public class OrdenModel {
 
     @Id // Identificador único en MongoDB
-    private String id; // MongoDB utiliza un identificador de tipo String por defecto
+    private ObjectId id; // MongoDB utiliza un identificador de tipo String por defecto
     private Instant fechaOrden; // Usamos Instant para fechas en lugar de Timestamp
     private String estado; // Puede ser "pendiente", "pagada", "enviada", etc.
     private String idCliente; // Relación con el cliente (referencia)
     private double total; // Total a pagar
     private double latitud; // Coordenada geográfica
     private double longitud; // Coordenada geográfica
-    private String idRepartidor; // Relación con el repartidor (referencia)
+    private RepartidorModel repartidor; // Relación con el repartidor (referencia)
 
-    // Constructor
-    public OrdenEntity(Instant fechaOrden, String estado, String idCliente,
-                       double total, double latitud, double longitud, String idRepartidor) {
-        this.fechaOrden = fechaOrden;
-        this.estado = estado;
-        this.idCliente = idCliente;
-        this.total = total;
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.idRepartidor = idRepartidor;
-    }
 
-    // Getters y Setters
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -87,11 +76,11 @@ public class OrdenEntity {
         this.longitud = longitud;
     }
 
-    public String getIdRepartidor() {
-        return idRepartidor;
+    public RepartidorModel getRepartidor() {
+        return repartidor;
     }
 
-    public void setIdRepartidor(String idRepartidor) {
-        this.idRepartidor = idRepartidor;
+    public void setRepartidor(RepartidorModel repartidor) {
+        this.repartidor = repartidor;
     }
 }

@@ -2,7 +2,6 @@ package proyecto.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import proyecto.entities.AlmacenEntity;
 import proyecto.service.AlmacenService;
 
 import java.util.List;
@@ -29,12 +28,12 @@ public class AlmacenController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(AlmacenEntity almacen){
+    public ResponseEntity<Object> create(AlmacenModel almacen){
         return almacenService.create(almacen);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(AlmacenEntity almacen){
+    public ResponseEntity<Object> update(AlmacenModel almacen){
         return almacenService.update(almacen);
     }
 

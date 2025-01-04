@@ -3,7 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import proyecto.entities.CategoriaEntity;
+import proyecto.models.CategoriaModel;
 import proyecto.repositories.CategoriaRepository;
 
 import java.util.List;
@@ -21,11 +21,11 @@ public class CategoriaService {
         return categoriaRepository.findById(id_categoria);
     }
 
-    public ResponseEntity<Object> create(CategoriaEntity categoria){
+    public ResponseEntity<Object> create(CategoriaModel categoria){
         return categoriaRepository.create(categoria);
     }
 
-    public ResponseEntity<Object> update(CategoriaEntity categoria){
+    public ResponseEntity<Object> update(CategoriaModel categoria){
         return categoriaRepository.update(categoria);
     }
 

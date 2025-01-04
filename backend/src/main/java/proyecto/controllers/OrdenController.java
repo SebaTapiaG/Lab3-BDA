@@ -3,7 +3,7 @@ package proyecto.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.dto.RepartidorDTO;
-import proyecto.entities.OrdenEntity;
+import proyecto.models.OrdenModel;
 import proyecto.service.OrdenService;
 
 import java.util.List;
@@ -29,13 +29,13 @@ public class OrdenController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody OrdenEntity orden) {
+    public ResponseEntity<Object> create(@RequestBody OrdenModel orden) {
        System.out.println(orden);
        return ordenService.create(orden);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody OrdenEntity orden) {
+    public ResponseEntity<Object> update(@RequestBody OrdenModel orden) {
         return ordenService.update(orden);
     }
 

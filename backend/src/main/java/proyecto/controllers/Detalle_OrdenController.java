@@ -1,12 +1,8 @@
 package proyecto.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import proyecto.entities.Detalle_OrdenEntity;
 import proyecto.service.Detalle_OrdenService;
-import proyecto.service.OrdenService;
-import proyecto.service.ProductoService;
 
 import java.util.List;
 
@@ -31,12 +27,12 @@ public class Detalle_OrdenController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody Detalle_OrdenEntity detalle_orden) {
+    public ResponseEntity<Object> create(@RequestBody Detalle_OrdenModel detalle_orden) {
         return detalle_ordenService.create(detalle_orden);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody Detalle_OrdenEntity detalle_orden) {
+    public ResponseEntity<Object> update(@RequestBody Detalle_OrdenModel detalle_orden) {
         return detalle_ordenService.update(detalle_orden);
     }
 

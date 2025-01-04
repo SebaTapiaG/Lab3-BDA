@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import proyecto.entities.Detalle_OrdenEntity;
 
 import java.util.List;
 
@@ -18,8 +17,8 @@ public class Detalle_OrdenRepositoryImp implements Detalle_OrdenRepository{
     @Override
     public ResponseEntity<List<Object>> findAll() {
         try(Connection conn = sql2o.open()){
-            List<Detalle_OrdenEntity> detalle_ordenes = conn.createQuery("SELECT * FROM detalle_orden")
-                    .executeAndFetch(Detalle_OrdenEntity.class);
+            List<Detalle_OrdenModel> detalle_ordenes = conn.createQuery("SELECT * FROM detalle_orden")
+                    .executeAndFetch(Detalle_OrdenModel.class);
             List<Object> result = (List) detalle_ordenes;
             if(detalle_ordenes.isEmpty()){
                 return ResponseEntity.noContent().build();
@@ -34,9 +33,9 @@ public class Detalle_OrdenRepositoryImp implements Detalle_OrdenRepository{
     @Override
     public ResponseEntity<Object> findById(int id_detalle_orden) {
         try(Connection conn = sql2o.open()){
-            Detalle_OrdenEntity detalle_orden = conn.createQuery("SELECT * FROM detalle_orden WHERE id_detalle_orden = :id_detalle_orden")
+            Detalle_OrdenModel detalle_orden = conn.createQuery("SELECT * FROM detalle_orden WHERE id_detalle_orden = :id_detalle_orden")
                     .addParameter("id_detalle_orden", id_detalle_orden)
-                    .executeAndFetchFirst(Detalle_OrdenEntity.class);
+                    .executeAndFetchFirst(Detalle_OrdenModel.class);
             if(detalle_orden == null){
                 return ResponseEntity.notFound().build();
             }
@@ -47,7 +46,7 @@ public class Detalle_OrdenRepositoryImp implements Detalle_OrdenRepository{
     }
 
     @Override
-    public ResponseEntity<Object> create(Detalle_OrdenEntity detalle_orden) {
+    public ResponseEntity<Object> create(Detalle_OrdenModel detalle_orden) {
         try(Connection conn = sql2o.open()){
             Integer id = (Integer) conn.createQuery("INSERT INTO detalle_orden (cantidad, precio_unitario, id_producto, id_orden) VALUES (:cantidad, :precio_unitario, :id_producto, :id_orden)", true)
                     .addParameter("cantidad", detalle_orden.getCantidad())
@@ -63,7 +62,7 @@ public class Detalle_OrdenRepositoryImp implements Detalle_OrdenRepository{
     }
 
     @Override
-    public ResponseEntity<Object> update(Detalle_OrdenEntity detalle_orden) {
+    public ResponseEntity<Object> update(Detalle_OrdenModel detalle_orden) {
         try(Connection conn = sql2o.open()){
             conn.createQuery("UPDATE detalle_orden SET cantidad = :cantidad, precio = :precio, id_producto = :id_producto, id_orden = :id_orden WHERE id_detalle_orden = :id_detalle_orden")
                     .addParameter("cantidad", detalle_orden.getCantidad())

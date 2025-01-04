@@ -2,8 +2,7 @@ package proyecto.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import proyecto.entities.ZonaEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import proyecto.models.ZonaModel;
 import proyecto.service.ZonaService;
 
 import java.util.List;
@@ -36,12 +35,12 @@ public class ZonaController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody ZonaEntity zona){
+    public ResponseEntity<Object> create(@RequestBody ZonaModel zona){
         return zonaService.create(zona);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody ZonaEntity zona){
+    public ResponseEntity<Object> update(@RequestBody ZonaModel zona){
         return zonaService.update(zona);
     }
 
