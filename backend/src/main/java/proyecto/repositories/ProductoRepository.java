@@ -5,12 +5,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import proyecto.models.ProductoModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductoRepository extends MongoRepository<ProductoModel, String> {
 
     //List<ProductoEntity> findAll();  // MongoRepository ya tiene este método por defecto
 
-    ProductoModel findById(String id_producto);  // Cambiar a String si usas ID como String en Mongo
+    Optional<ProductoModel> findById(String id_producto);  // Cambiar a String si usas ID como String en Mongo
 
     ProductoModel findByNombre(String nombre);
 
@@ -22,5 +23,5 @@ public interface ProductoRepository extends MongoRepository<ProductoModel, Strin
     void deleteById(String id_producto);  // MongoRepository ya maneja el delete por ID
 
     //List<ProductoMasCompradoDTO> productosMasCompradosPorClientes();
-}
+
 }

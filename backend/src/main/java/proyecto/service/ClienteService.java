@@ -53,7 +53,7 @@ public class ClienteService {
 
     // Actualiza un cliente
     public ResponseEntity<ClienteModel> update(ClienteModel cliente) {
-        if (!clienteRepository.existsById(cliente.getId_cliente())) {
+        if (!clienteRepository.existsById(String.valueOf(cliente.getId()))) {
             return ResponseEntity.notFound().build();
         }
         ClienteModel updatedCliente = clienteRepository.save(cliente);

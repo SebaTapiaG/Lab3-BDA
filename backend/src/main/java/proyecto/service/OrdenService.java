@@ -35,7 +35,7 @@ public class OrdenService {
 
     public ResponseEntity<OrdenModel> update(OrdenModel orden) {
         // Si la orden existe, se actualiza. Si no, puedes lanzar un error.
-        if (ordenRepository.existsById(orden.getId())) {
+        if (ordenRepository.existsById(String.valueOf(orden.getId()))) {
             OrdenModel updatedOrder = ordenRepository.save(orden);
             return ResponseEntity.ok(updatedOrder);
         } else {

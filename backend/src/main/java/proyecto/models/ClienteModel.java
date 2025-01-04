@@ -36,7 +36,7 @@ public class ClienteModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

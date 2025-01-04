@@ -3,13 +3,7 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-=======
-import proyecto.entities.Detalle_OrdenEntity;
->>>>>>> Stashed changes
+import proyecto.models.Detalle_OrdenEntity;
 
 import java.util.List;
 

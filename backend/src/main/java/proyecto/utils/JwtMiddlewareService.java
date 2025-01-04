@@ -1,6 +1,7 @@
 package proyecto.utils;
 
 import io.jsonwebtoken.*;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Repository;
 import proyecto.models.ClienteModel;
 
@@ -56,7 +57,7 @@ public class JwtMiddlewareService{
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-        Long id = claims.get("user_id", Long.class);
+        ObjectId id = claims.get("user_id", ObjectId.class);
         String username = claims.get("name", String.class);
 
         ClienteModel clienteModel = new ClienteModel();

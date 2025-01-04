@@ -7,24 +7,16 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import proyecto.models.CategoriaModel;
 
-public interface CategoriaRepository extends MongoRepository<CategoriaEntity, ObjectId> {
+public interface CategoriaRepository extends MongoRepository<CategoriaModel, ObjectId> {
 
-    ResponseEntity <List<Object>> findAll();
+    List<CategoriaModel> findAll();
 
     ResponseEntity<Object> findById(int id_categoria);
-
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+    
     ResponseEntity<Object> create(CategoriaModel categoria);
 
     ResponseEntity<Object> update(CategoriaModel categoria);
-=======
-    ResponseEntity<Object> save(CategoriaEntity categoria);
->>>>>>> Stashed changes
-=======
-    ResponseEntity<Object> save(CategoriaEntity categoria);
->>>>>>> Stashed changes
-
+    ResponseEntity<Object> save(CategoriaModel categoria);
     ResponseEntity<Object> delete(int id_categoria);
 
 

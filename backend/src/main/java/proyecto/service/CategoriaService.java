@@ -14,7 +14,7 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository categoriaRepository;
 
-    public ResponseEntity<List<Object>> findAll(){
+    public List<CategoriaModel> findAll(){
         return categoriaRepository.findAll();
     }
     public ResponseEntity<Object> findById(int id_categoria){

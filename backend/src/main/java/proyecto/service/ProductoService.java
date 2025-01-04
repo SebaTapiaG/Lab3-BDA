@@ -22,8 +22,8 @@ public class ProductoService {
     }
 
     // Obtener producto por ID
-    public ResponseEntity<ProductoModel> findById(String id_producto) {
-        Optional<ProductoModel> producto = Optional.of(productoRepository.findById(id_producto));
+    public ResponseEntity<Optional<ProductoModel>> findById(String id_producto) {
+        Optional<Optional<ProductoModel>> producto = Optional.of(productoRepository.findById(id_producto));
         return producto.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(404).build());  // 404 si no lo encuentra
     }
@@ -48,7 +48,7 @@ public class ProductoService {
 
     // Actualizar producto
     public ResponseEntity<ProductoModel> update(ProductoModel producto) {
-        if (productoRepository.existsById(producto.getId())) {
+        if (productoRepository.existsById(String.valueOf(producto.getId()))) {
             ProductoModel updatedProducto = productoRepository.save(producto);
             return ResponseEntity.ok(updatedProducto);  // Retorna el producto actualizado
         }
