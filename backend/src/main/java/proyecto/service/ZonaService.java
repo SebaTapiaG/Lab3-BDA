@@ -14,7 +14,7 @@ public class ZonaService {
     @Autowired
     ZonaRepository zonaRepository;
 
-    public ResponseEntity<List<Object>> findAll() {
+    public List<ZonaModel> findAll() {
         return zonaRepository.findAll();
     }
 

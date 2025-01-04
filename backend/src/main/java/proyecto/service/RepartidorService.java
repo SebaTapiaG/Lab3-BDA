@@ -7,17 +7,18 @@ import proyecto.models.RepartidorModel;
 import proyecto.repositories.RepartidorRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RepartidorService {
     @Autowired
     RepartidorRepository repartidorRepository;
 
-    public ResponseEntity<List<Object>> findAll() {
+    public List<RepartidorModel> findAll() {
         return repartidorRepository.findAll();
     }
 
-    public ResponseEntity<Object> findById(Integer id) {
+    public Optional<RepartidorModel> findById(Integer id) {
         return repartidorRepository.findById(id);
     }
 

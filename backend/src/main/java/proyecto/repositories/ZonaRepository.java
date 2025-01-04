@@ -1,12 +1,13 @@
 package proyecto.repositories;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.ResponseEntity;
 import proyecto.models.ZonaModel;
 
 import java.util.List;
 
-public interface ZonaRepository {
-    ResponseEntity<List<Object>> findAll();
+public interface ZonaRepository extends MongoRepository<ZonaModel, String> {
+    List<ZonaModel> findAll();
     ResponseEntity<Object> findById(int id_zona);
     ResponseEntity<List<Object>> findByEstado(String estado);
     ResponseEntity<Object> create(ZonaModel zona);
