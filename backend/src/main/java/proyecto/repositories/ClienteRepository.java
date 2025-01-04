@@ -23,5 +23,7 @@ public interface ClienteRepository extends MongoRepository<ClienteModel, String>
     // Buscar cliente por ID
     Optional<ClienteModel> findById(String id_cliente);
 
+    
+
 
 }

@@ -3,7 +3,11 @@ package proyecto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+<<<<<<< Updated upstream
 import proyecto.repositories.Almacen_ProductoRepository;
+=======
+import proyecto.entities.Almacen_ProductoEntity;
+>>>>>>> Stashed changes
 
 import java.util.List;
 
