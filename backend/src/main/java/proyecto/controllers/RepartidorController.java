@@ -7,6 +7,7 @@ import proyecto.models.RepartidorModel;
 import proyecto.service.RepartidorService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -17,11 +18,11 @@ public class RepartidorController {
 
     @GetMapping("")
     public ResponseEntity<List<Object>> findAll(){
-        return repartidorService.findAll();
+        return (ResponseEntity<List<Object>>) repartidorService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable Integer id){
+    public Optional<RepartidorModel> getById(@PathVariable Integer id){
         return repartidorService.findById(id);
     }
 

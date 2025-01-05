@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -48,7 +49,7 @@ public class ProductoService {
 
     // Actualizar producto
     public ResponseEntity<ProductoModel> update(ProductoModel producto) {
-        if (productoRepository.existsById(String.valueOf(producto.getId()))) {
+        if (productoRepository.existsById(producto.getId())) {
             ProductoModel updatedProducto = productoRepository.save(producto);
             return ResponseEntity.ok(updatedProducto);  // Retorna el producto actualizado
         }
@@ -56,7 +57,7 @@ public class ProductoService {
     }
 
     // Eliminar producto por ID
-    public ResponseEntity<String> delete(String id_producto) {
+    public ResponseEntity<String> delete(ObjectId id_producto) {
         if (productoRepository.existsById(id_producto)) {
             productoRepository.deleteById(id_producto);
             return ResponseEntity.ok("Producto eliminado con éxito");

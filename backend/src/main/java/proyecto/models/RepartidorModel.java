@@ -1,6 +1,7 @@
 package proyecto.models;
 
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,18 +18,18 @@ public class RepartidorModel {
      */
 
     @Id
-    private Object id;
+    private ObjectId id;
     private String nombre;
 
     private String contrasena;
     private String email;
     private String telefono;
 
-    public Object getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Object id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

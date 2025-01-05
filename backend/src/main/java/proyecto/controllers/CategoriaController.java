@@ -19,7 +19,7 @@ public class CategoriaController {
 
     @GetMapping("/")
     public ResponseEntity<List<Object>> findAll(){
-        return categoriaService.findAll();
+        return (ResponseEntity<List<Object>>) categoriaService.findAll();
     }
 
     @GetMapping("/{id_categoria}")

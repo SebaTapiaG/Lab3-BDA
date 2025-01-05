@@ -10,7 +10,7 @@ public class ProductoImagenModel {
     @Id
     private ObjectId id;  // ID del archivo multimedia (MongoDB genera este ID automáticamente)
 
-    private String id_producto;  // Referencia al producto al que pertenece el archivo
+    private ObjectId id_producto;  // Referencia al producto al que pertenece el archivo
     private String tipo;  // Tipo de archivo (por ejemplo, "imagen", "video")
     private String nombreArchivo;  // Nombre del archivo multimedia
     private String descripcion;  // Descripción del archivo (opcional)
@@ -23,11 +23,11 @@ public class ProductoImagenModel {
         this.id = id;
     }
 
-    public String getId_producto() {
+    public ObjectId getId_producto() {
         return id_producto;
     }
 
-    public void setId_producto(String id_producto) {
+    public void setId_producto(ObjectId id_producto) {
         this.id_producto = id_producto;
     }
 

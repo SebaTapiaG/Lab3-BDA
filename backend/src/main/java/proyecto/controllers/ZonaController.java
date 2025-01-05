@@ -21,7 +21,7 @@ public class ZonaController {
 
     @GetMapping("")
     public ResponseEntity<List<Object>> findAll(){
-        return zonaService.findAll();
+        return (ResponseEntity<List<Object>>) zonaService.findAll();
     }
 
     @GetMapping("/{id_zona}")

@@ -1,4 +1,5 @@
 package proyecto.repositories;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 //import org.springframework.http.ResponseEntity;
 //import proyecto.dto.ProductoMasCompradoDTO;
@@ -7,7 +8,7 @@ import proyecto.models.ProductoModel;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductoRepository extends MongoRepository<ProductoModel, String> {
+public interface ProductoRepository extends MongoRepository<ProductoModel, ObjectId> {
 
     //List<ProductoEntity> findAll();  // MongoRepository ya tiene este método por defecto
 

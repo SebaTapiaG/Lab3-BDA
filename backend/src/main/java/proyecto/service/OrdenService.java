@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class OrdenService {
         return ResponseEntity.ok(ordenes);
     }
 
-    public ResponseEntity<OrdenModel> findById(String id_orden) {
+    public ResponseEntity<OrdenModel> findById(ObjectId id_orden) {
         return ordenRepository.findById(id_orden)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -35,7 +36,7 @@ public class OrdenService {
 
     public ResponseEntity<OrdenModel> update(OrdenModel orden) {
         // Si la orden existe, se actualiza. Si no, puedes lanzar un error.
-        if (ordenRepository.existsById(String.valueOf(orden.getId()))) {
+        if (ordenRepository.existsById(orden.getId())) {
             OrdenModel updatedOrder = ordenRepository.save(orden);
             return ResponseEntity.ok(updatedOrder);
         } else {
@@ -43,13 +44,17 @@ public class OrdenService {
         }
     }
 
-    public ResponseEntity<Void> delete(String id_orden) {
+    public ResponseEntity<Void> delete(ObjectId id_orden) {
         if (ordenRepository.existsById(id_orden)) {
             ordenRepository.deleteById(id_orden);
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<List<Object>> findByIdCliente(ObjectId idCliente) {
+        return (ResponseEntity<List<Object>>) ordenRepository.findByClienteId(idCliente);
     }
 /*
     public ResponseEntity<List<RepartidorDTO>> findDeliveryCompletedInArea(int id_zona) {

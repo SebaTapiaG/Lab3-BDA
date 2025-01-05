@@ -1,5 +1,6 @@
 package proyecto.repositories;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import proyecto.models.ClienteModel;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ClienteRepository extends MongoRepository<ClienteModel, String> {
+public interface ClienteRepository extends MongoRepository<ClienteModel, ObjectId> {
 
     // Buscar un cliente por nombre
     Optional<ClienteModel> findByName(String name);
@@ -21,11 +22,5 @@ public interface ClienteRepository extends MongoRepository<ClienteModel, String>
 
     // No es necesario implementar estos métodos en el repositorio, se pueden implementar en el servicio
     // Buscar cliente por ID
-    Optional<ClienteModel> findById(String id_cliente);
-
-    
-
-    
-
-
+    Optional<ClienteModel> findById(ObjectId id_cliente);
 }

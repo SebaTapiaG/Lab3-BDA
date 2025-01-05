@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ClienteService {
     }
 
     // Recupera un cliente por su ID
-    public ResponseEntity<ClienteModel> findById(String id_cliente) {
+    public ResponseEntity<ClienteModel> findById(ObjectId id_cliente) {
         Optional<ClienteModel> cliente = clienteRepository.findById(id_cliente);
         return cliente.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -53,7 +54,7 @@ public class ClienteService {
 
     // Actualiza un cliente
     public ResponseEntity<ClienteModel> update(ClienteModel cliente) {
-        if (!clienteRepository.existsById(String.valueOf(cliente.getId()))) {
+        if (!clienteRepository.existsById(cliente.getId())) {
             return ResponseEntity.notFound().build();
         }
         ClienteModel updatedCliente = clienteRepository.save(cliente);
@@ -61,7 +62,7 @@ public class ClienteService {
     }
 
     // Elimina un cliente por su ID
-    public ResponseEntity<Void> delete(String id_cliente) {
+    public ResponseEntity<Void> delete(ObjectId id_cliente) {
         if (!clienteRepository.existsById(id_cliente)) {
             return ResponseEntity.notFound().build();
         }

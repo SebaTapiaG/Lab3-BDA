@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class RepartidorService {
         return repartidorRepository.findAll();
     }
 
-    public Optional<RepartidorModel> findById(Integer id) {
+    public Optional<RepartidorModel> findById(ObjectId id) {
         return repartidorRepository.findById(id);
     }
 
