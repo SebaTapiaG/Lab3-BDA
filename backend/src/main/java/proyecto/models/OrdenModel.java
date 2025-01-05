@@ -19,7 +19,6 @@ public class OrdenModel {
     private double latitud; // Coordenada geográfica
     private double longitud; // Coordenada geográfica
     private List<ProductoModel> productos; // Lista de productos en la orden
-    private RepartidorModel repartidor; // Relación con el repartidor (referencia)
 
 
     public ObjectId getId() {
@@ -76,14 +75,6 @@ public class OrdenModel {
 
     public void setLongitud(double longitud) {
         this.longitud = longitud;
-    }
-
-    public RepartidorModel getRepartidor() {
-        return repartidor;
-    }
-
-    public void setRepartidor(RepartidorModel repartidor) {
-        this.repartidor = repartidor;
     }
 
     public List<ProductoModel> getProductos() {

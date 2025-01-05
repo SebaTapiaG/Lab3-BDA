@@ -30,18 +30,13 @@ public class CategoriaController {
     }
 
     @GetMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody CategoriaModel categoria) {
+    public CategoriaModel create(@RequestBody CategoriaModel categoria) {
         return categoriaService.create(categoria);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Object> update(@RequestBody CategoriaModel categoria) {
-        return categoriaService.update(categoria);
-    }
-
     @DeleteMapping("/{id_categoria}")
-    public ResponseEntity<Object> delete(@PathVariable ObjectId id_categoria) {
-        return categoriaService.delete(id_categoria);
+    public void delete(@PathVariable ObjectId id_categoria) {
+        categoriaService.delete(id_categoria);
     }
 
 

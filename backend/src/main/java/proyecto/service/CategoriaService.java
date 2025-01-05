@@ -23,16 +23,12 @@ public class CategoriaService {
         return categoriaRepository.findById(id_categoria);
     }
 
-    public ResponseEntity<Object> create(CategoriaModel categoria){
-        return categoriaRepository.create(categoria);
+    public CategoriaModel create(CategoriaModel categoria){
+        return categoriaRepository.save(categoria);
     }
 
-    public ResponseEntity<Object> update(CategoriaModel categoria){
-        return categoriaRepository.update(categoria);
-    }
-
-    public ResponseEntity<Object> delete(ObjectId id_categoria){
-        return categoriaRepository.delete(id_categoria);
+    public void delete(ObjectId id_categoria){
+        categoriaRepository.deleteById(id_categoria);
     }
 
 }

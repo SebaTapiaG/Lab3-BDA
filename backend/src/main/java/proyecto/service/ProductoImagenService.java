@@ -14,6 +14,7 @@ public class ProductoImagenService {
     @Autowired
     private ProductoImagenRepository productoImagenRepository;
 
+    /*
     // Obtener todas las imágenes de un producto específico
     public List<ProductoImagenModel> obtenerImagenesPorProducto(ObjectId id_producto) {
         return productoImagenRepository.findById_producto(id_producto);
@@ -33,4 +34,6 @@ public class ProductoImagenService {
     public List<ProductoImagenModel> obtenerImagenesPorDescripcion(String descripcion) {
         return productoImagenRepository.findByDescripcion(descripcion);
     }
+
+     */
 }

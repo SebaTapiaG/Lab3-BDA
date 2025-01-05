@@ -10,10 +10,6 @@ import java.util.Optional;
 
 public interface ProductoRepository extends MongoRepository<ProductoModel, ObjectId> {
 
-    //List<ProductoEntity> findAll();  // MongoRepository ya tiene este método por defecto
-
-    Optional<ProductoModel> findById(String id_producto);  // Cambiar a String si usas ID como String en Mongo
-
     ProductoModel findByNombre(String nombre);
 
     List<ProductoModel> findByCategoria(ObjectId id_categoria);

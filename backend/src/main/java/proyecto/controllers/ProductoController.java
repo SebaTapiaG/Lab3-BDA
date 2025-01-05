@@ -21,6 +21,7 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
+    /*
 
     @GetMapping("")
     public ResponseEntity<List<ProductoModel>> findAll(){
@@ -49,9 +50,6 @@ public class ProductoController {
         return productoService.getProductosMasComprados();
     }
 
- */
-
-
     @PutMapping("/update")
     public ResponseEntity<ProductoModel> update(@RequestBody ProductoModel producto){
         return productoService.update(producto);
@@ -61,4 +59,6 @@ public class ProductoController {
     public ResponseEntity<String> delete(@PathVariable ObjectId id_producto){
         return productoService.delete(id_producto);
     }
+    */
+
 }

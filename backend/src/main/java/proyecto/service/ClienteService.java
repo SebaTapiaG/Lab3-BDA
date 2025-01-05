@@ -34,7 +34,7 @@ public class ClienteService {
 
     // Recupera un cliente por su nombre
     public ResponseEntity<ClienteModel> findByName(String name) {
-        Optional<ClienteModel> cliente = clienteRepository.findByName(name);
+        Optional<ClienteModel> cliente = clienteRepository.findByNombre(name);
         return cliente.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

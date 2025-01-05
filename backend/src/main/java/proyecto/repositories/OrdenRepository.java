@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrdenRepository extends MongoRepository<OrdenModel, ObjectId> {
 
     // Puedes agregar métodos personalizados si los necesitas
-    List<OrdenModel> findByClienteId(ObjectId id_cliente);  // Encuentra órdenes por ID de cliente
+    List<OrdenModel> findByIdCliente(ObjectId id_cliente);  // Encuentra órdenes por ID de cliente
 
    // List<RepartidorDTO> findDeliveryCompletedInArea(int id_zona);
 }
