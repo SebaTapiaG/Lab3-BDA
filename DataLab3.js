@@ -1,6 +1,8 @@
-// Conectar a MongoDB
-conn = new Mongo();
-db = conn.getDB("lab3bda");
+db.createCollection("productos");
+db.createCollection("clientes");
+db.createCollection("ordenes");
+db.createCollection("repartidores");
+db.createCollection("zonas");
 
 // Insertar habilidades en la colección 'Skill'
 const categorias = [
@@ -12,7 +14,7 @@ const categorias = [
 ];
 
 categorias.forEach(categoria => {
-    db.categoria.insert(categoria);
+    db.categoria.insertOne(categoria);
 });
 
 // Función para buscar habilidades por código y asegurar que existen antes de insertar
@@ -28,7 +30,7 @@ const clientes = [
 ];
 
 clientes.forEach(cliente => {
-    db.Cliente.insert(cliente);
+    db.Cliente.insertOne(cliente);
 });
 
 const ordenes = [
@@ -44,7 +46,7 @@ const ordenes = [
 ];
 
 ordenes.forEach(orden => {
-	db.Orden.insert(orden);
+	db.Orden.insertOne(orden);
 });
 
 const productos = [
@@ -66,7 +68,7 @@ const productos = [
 ];
 
 productos.forEach(producto => {
-	db.Producto.insert(producto);
+	db.Producto.insertOne(producto);
 });
 
 const repartidores = [
@@ -76,7 +78,7 @@ const repartidores = [
 ];
 
 repartidores.forEach(repartidor => {
-	db.Repartidor.insert(repartidor);
+	db.Repartidor.insertOne(repartidor);
 });
 
 const zonas = [
@@ -88,5 +90,5 @@ const zonas = [
 ];
 
 zonas.forEach(zona => {
-	db.Zona.insert(zona);
+	db.Zona.insertOne(zona);
 });
