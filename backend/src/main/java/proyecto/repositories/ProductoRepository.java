@@ -16,12 +16,12 @@ public interface ProductoRepository extends MongoRepository<ProductoModel, Objec
 
     ProductoModel findByNombre(String nombre);
 
-    List<ProductoModel> findByCategoria(int id_categoria);
+    List<ProductoModel> findByCategoria(ObjectId id_categoria);
 
     // No es necesario tener create y update aquí, puedes usar los métodos de MongoRepository directamente
     // MongoRepository ya tiene save() para crear o actualizar
 
-    void deleteById(String id_producto);  // MongoRepository ya maneja el delete por ID
+    void deleteById(ObjectId id_producto);  // MongoRepository ya maneja el delete por ID
 
     //List<ProductoMasCompradoDTO> productosMasCompradosPorClientes();
 

@@ -1,5 +1,6 @@
 package proyecto.controllers;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.models.ZonaModel;
@@ -25,7 +26,7 @@ public class ZonaController {
     }
 
     @GetMapping("/{id_zona}")
-    public ResponseEntity<Object> findById(@PathVariable int id_zona) {
+    public ResponseEntity<Object> findById(@PathVariable ObjectId id_zona) {
         return zonaService.findById(id_zona);
     }
 

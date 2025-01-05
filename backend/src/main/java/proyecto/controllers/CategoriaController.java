@@ -1,11 +1,13 @@
 package proyecto.controllers;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.service.CategoriaService;
 import proyecto.models.CategoriaModel;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -23,7 +25,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/{id_categoria}")
-    public ResponseEntity<Object> findById(@PathVariable int id_categoria) {
+    public Optional<CategoriaModel> findById(@PathVariable ObjectId id_categoria) {
         return categoriaService.findById(id_categoria);
     }
 
@@ -38,7 +40,7 @@ public class CategoriaController {
     }
 
     @DeleteMapping("/{id_categoria}")
-    public ResponseEntity<Object> delete(@PathVariable int id_categoria) {
+    public ResponseEntity<Object> delete(@PathVariable ObjectId id_categoria) {
         return categoriaService.delete(id_categoria);
     }
 

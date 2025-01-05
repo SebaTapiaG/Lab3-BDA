@@ -23,7 +23,7 @@ public class ProductoService {
     }
 
     // Obtener producto por ID
-    public ResponseEntity<Optional<ProductoModel>> findById(String id_producto) {
+    public ResponseEntity<Optional<ProductoModel>> findById(ObjectId id_producto) {
         Optional<Optional<ProductoModel>> producto = Optional.of(productoRepository.findById(id_producto));
         return producto.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.status(404).build());  // 404 si no lo encuentra
@@ -36,7 +36,7 @@ public class ProductoService {
     }
 
     // Obtener productos por categoría
-    public ResponseEntity<List<ProductoModel>> findByCategoria(int id_categoria) {
+    public ResponseEntity<List<ProductoModel>> findByCategoria(ObjectId id_categoria) {
         List<ProductoModel> productos = productoRepository.findByCategoria(id_categoria);
         return productos.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(productos);
     }

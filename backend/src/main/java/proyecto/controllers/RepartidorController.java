@@ -1,5 +1,6 @@
 package proyecto.controllers;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class RepartidorController {
     }
 
     @GetMapping("/{id}")
-    public Optional<RepartidorModel> getById(@PathVariable Integer id){
+    public Optional<RepartidorModel> getById(@PathVariable ObjectId id){
         return repartidorService.findById(id);
     }
 
@@ -31,18 +32,13 @@ public class RepartidorController {
         return repartidorService.findByEmail(email);
     }
 
-    @GetMapping("/almacen/{id}")
-    public ResponseEntity<List<RepartidorModel>> findByAlmacen(@PathVariable Integer id){
-        return repartidorService.findByAlmacen(id);
-    }
-
     @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody RepartidorModel repartidor){
         return repartidorService.update(repartidor);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Integer id){
+    public ResponseEntity<Object> delete(@PathVariable ObjectId id){
         return repartidorService.delete(id);
     }
 

@@ -5,15 +5,15 @@ import org.springframework.http.ResponseEntity;
 import proyecto.models.RepartidorModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RepartidorRepository extends MongoRepository<RepartidorModel, ObjectId> {
     ResponseEntity<Object> findByNombre(String name);
     ResponseEntity<Object> findByEmail(String email);
-    ResponseEntity<Object> findById(int id_repartidor);
+    Optional<RepartidorModel> findById(ObjectId id_repartidor);
     List<RepartidorModel> findAll();
-    ResponseEntity<List<RepartidorModel>>  findByAlmacen(int idAlmacen);
     ResponseEntity<Object> update(RepartidorModel repartidor);
-    ResponseEntity<Object> delete(int idRepartidor);
+    ResponseEntity<Object> delete(ObjectId idRepartidor);
     ResponseEntity<Object> register(RepartidorModel repartidor);
     ResponseEntity<Object> login(String email, String password);
 }

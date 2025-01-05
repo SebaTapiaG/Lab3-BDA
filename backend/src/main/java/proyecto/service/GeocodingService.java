@@ -22,7 +22,7 @@ public class GeocodingService {
           String response = restTemplate.getForObject(url, String.class);
 
           JSONArray jsonResponse = new JSONArray(response);
-          if (jsonResponse.length() > 0) {
+          if (!jsonResponse.isEmpty()) {
                JSONObject firstResult = jsonResponse.getJSONObject(0);
                double lat = firstResult.getDouble("lat");
 
@@ -38,7 +38,7 @@ public class GeocodingService {
           String response = restTemplate.getForObject(url, String.class);
 
           JSONArray jsonResponse = new JSONArray(response);
-          if (jsonResponse.length() > 0) {
+          if (!jsonResponse.isEmpty()) {
                JSONObject firstResult = jsonResponse.getJSONObject(0);
                double lon = firstResult.getDouble("lon");
 

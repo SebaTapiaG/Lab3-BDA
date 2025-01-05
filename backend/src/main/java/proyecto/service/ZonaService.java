@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import proyecto.models.ZonaModel;
 import proyecto.repositories.ZonaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ZonaService {
@@ -18,7 +20,7 @@ public class ZonaService {
         return zonaRepository.findAll();
     }
 
-    public ResponseEntity<Object> findById(int id_zona) {
+    public Optional<ZonaModel> findById(ObjectId id_zona) {
         return zonaRepository.findById(id_zona);
     }
 
@@ -33,7 +35,7 @@ public class ZonaService {
         return zonaRepository.update(zona);
     }
 
-    public ResponseEntity<Object> delete(int id_zona) {
+    public ResponseEntity<Object> delete(ObjectId id_zona) {
         return zonaRepository.delete(id_zona);
     }
 }

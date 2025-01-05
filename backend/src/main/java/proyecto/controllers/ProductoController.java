@@ -28,13 +28,13 @@ public class ProductoController {
     }
 
     @GetMapping("/categoria/{id_categoria}")
-    public ResponseEntity<List<ProductoModel>> findByCategoria(@PathVariable int id_categoria){
+    public ResponseEntity<List<ProductoModel>> findByCategoria(@PathVariable ObjectId id_categoria){
         return productoService.findByCategoria(id_categoria);
     }
 
     @GetMapping("/{id_producto}")
-    public ResponseEntity<Optional<ProductoModel>> findById(@PathVariable int id_producto) {
-        return productoService.findById(String.valueOf(id_producto));
+    public ResponseEntity<Optional<ProductoModel>> findById(@PathVariable ObjectId id_producto) {
+        return productoService.findById(id_producto);
 
     }
 

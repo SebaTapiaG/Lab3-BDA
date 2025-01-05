@@ -31,15 +31,11 @@ public class RepartidorService {
         return repartidorRepository.findByEmail(email);
     }
 
-    public ResponseEntity<List<RepartidorModel>> findByAlmacen(int idAlmacen){
-        return repartidorRepository.findByAlmacen(idAlmacen);
-    }
-
     public ResponseEntity<Object> update(RepartidorModel repartidor){
         return repartidorRepository.update(repartidor);
     }
 
-    public ResponseEntity<Object> delete(int id) {
+    public ResponseEntity<Object> delete(ObjectId id) {
         return repartidorRepository.delete(id);
     }
 

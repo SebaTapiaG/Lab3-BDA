@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 import proyecto.models.ZonaModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ZonaRepository extends MongoRepository<ZonaModel, ObjectId> {
     List<ZonaModel> findAll();
-    ResponseEntity<Object> findById(int id_zona);
+    Optional<ZonaModel> findById(ObjectId id_zona);
     ResponseEntity<List<Object>> findByEstado(String estado);
     ResponseEntity<Object> create(ZonaModel zona);
     ResponseEntity<Object> update(ZonaModel zona);
-    ResponseEntity<Object> delete(int id_zona);
+    ResponseEntity<Object> delete(ObjectId id_zona);
 }

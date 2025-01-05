@@ -1,5 +1,6 @@
 package proyecto.service;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import proyecto.models.ProductoImagenModel;
@@ -14,7 +15,7 @@ public class ProductoImagenService {
     private ProductoImagenRepository productoImagenRepository;
 
     // Obtener todas las imágenes de un producto específico
-    public List<ProductoImagenModel> obtenerImagenesPorProducto(String id_producto) {
+    public List<ProductoImagenModel> obtenerImagenesPorProducto(ObjectId id_producto) {
         return productoImagenRepository.findById_producto(id_producto);
     }
 
