@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.util.List;
 
 @Document(collection = "Orden") // Indica que esta clase representa una colección en MongoDB
 public class OrdenModel {
@@ -17,6 +18,7 @@ public class OrdenModel {
     private double total; // Total a pagar
     private double latitud; // Coordenada geográfica
     private double longitud; // Coordenada geográfica
+    private List<ProductoModel> productos; // Lista de productos en la orden
     private RepartidorModel repartidor; // Relación con el repartidor (referencia)
 
 
@@ -82,5 +84,13 @@ public class OrdenModel {
 
     public void setRepartidor(RepartidorModel repartidor) {
         this.repartidor = repartidor;
+    }
+
+    public List<ProductoModel> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoModel> productos) {
+        this.productos = productos;
     }
 }
