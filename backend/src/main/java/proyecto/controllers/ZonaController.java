@@ -1,12 +1,14 @@
 package proyecto.controllers;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.models.ZonaModel;
 import proyecto.service.ZonaService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -27,7 +29,8 @@ public class ZonaController {
 
     @GetMapping("/{id_zona}")
     public ResponseEntity<Object> findById(@PathVariable ObjectId id_zona) {
-        return zonaService.findById(id_zona);
+        Optional<ZonaModel> zona = zonaService.findById(id_zona);
+        return zona.<ResponseEntity<Object>>map(zonaModel -> new ResponseEntity<>(zonaModel, HttpStatus.OK)).orElse(null);
     }
 
     @GetMapping("/estado/{estado}")
@@ -46,7 +49,7 @@ public class ZonaController {
     }
 
     @DeleteMapping("/delete/{id_zona}")
-    public ResponseEntity<Object> delete(@PathVariable int id_zona){
+    public ResponseEntity<Object> delete(@PathVariable ObjectId id_zona){
         return zonaService.delete(id_zona);
     }
 }

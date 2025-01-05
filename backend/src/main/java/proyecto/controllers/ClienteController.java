@@ -1,5 +1,6 @@
 package proyecto.controllers;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.models.ClienteModel;
@@ -20,17 +21,17 @@ public class ClienteController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Object>> findAll(){
+    public ResponseEntity<List<ClienteModel>> findAll(){
         return clienteService.findAll();
     }
 
     @GetMapping("/{id_cliente}")
-    public ResponseEntity<Object> findById(@PathVariable int id_cliente) {
+    public ResponseEntity<ClienteModel> findById(@PathVariable ObjectId id_cliente) {
         return clienteService.findById(id_cliente);
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<Object> findByEmail(@PathVariable String email) {
+    public ResponseEntity<ClienteModel> findByEmail(@PathVariable String email) {
         return clienteService.findByEmail(email);
     }
 
@@ -40,7 +41,7 @@ public class ClienteController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> createUser(@RequestBody ClienteModel user) {
+    public ResponseEntity<ClienteModel> createUser(@RequestBody ClienteModel user) {
         return clienteService.createUser(user);
     }
 
@@ -50,12 +51,8 @@ public class ClienteController {
     }
 
     @DeleteMapping("/delete/{id_cliente}")
-    public ResponseEntity<?> delete(@PathVariable int id_cliente) {
+    public ResponseEntity<?> delete(@PathVariable ObjectId id_cliente) {
         return clienteService.delete(id_cliente);
     }
 
-    @GetMapping("/puntomedio/{id_cliente1}/{id_cliente2}")
-    public ResponseEntity<Object> puntoMedio(@PathVariable int id_cliente1, @PathVariable int id_cliente2) {
-        return clienteService.puntoMedio(id_cliente1, id_cliente2);
-    }
 }

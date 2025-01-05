@@ -8,7 +8,6 @@ import proyecto.models.ClienteModel;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface ClienteRepository extends MongoRepository<ClienteModel, ObjectId> {
 
     // Buscar un cliente por nombre

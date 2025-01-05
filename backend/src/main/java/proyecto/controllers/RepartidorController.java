@@ -2,6 +2,7 @@ package proyecto.controllers;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.models.RepartidorModel;
@@ -23,8 +24,9 @@ public class RepartidorController {
     }
 
     @GetMapping("/{id}")
-    public Optional<RepartidorModel> getById(@PathVariable ObjectId id){
-        return repartidorService.findById(id);
+    public ResponseEntity<RepartidorModel> getById(@PathVariable ObjectId id){
+        Optional<RepartidorModel> repartidorModel = repartidorService.findById(id);
+        return repartidorModel.<ResponseEntity<RepartidorModel>>map(zonaModel -> new ResponseEntity<>(zonaModel, HttpStatus.OK)).orElse(null);
     }
 
     @GetMapping("/email/{email}")

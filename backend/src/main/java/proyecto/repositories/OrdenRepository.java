@@ -8,7 +8,6 @@ import proyecto.models.OrdenModel;
 
 import java.util.List;
 
-@Repository
 public interface OrdenRepository extends MongoRepository<OrdenModel, ObjectId> {
 
     // Puedes agregar métodos personalizados si los necesitas
