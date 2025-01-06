@@ -11,10 +11,6 @@
 	<div class="text">
 		<p>Costo total: {{ precio }}</p>
 	</div>
-	<div class="map-container">
-		<h4>Dirección de envio:</h4>
-		<div id="map" style="height: 500px;"></div>
-	</div>
 	<div class="button">
 		<Button @click="guardarOrden">Guardar orden</Button>
 	</div>

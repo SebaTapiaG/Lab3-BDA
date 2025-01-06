@@ -19,6 +19,7 @@ public interface ProductoRepository extends MongoRepository<ProductoModel, Objec
 
     void deleteById(ObjectId id_producto);  // MongoRepository ya maneja el delete por ID
 
+
     //List<ProductoMasCompradoDTO> productosMasCompradosPorClientes();
 
 }

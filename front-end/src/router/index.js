@@ -7,7 +7,6 @@ import AllProductsView from '../views/AllProductsView.vue';
 import CartView from '../views/CartView.vue';
 import OrdersView from '../views/OrdersView.vue';
 import RegisterRepartidorView from '../views/RegisterDeliveryView.vue';
-import MapView from '../views/MapView.vue';
 import DeliveryView from '@/views/DeliveryView.vue';
 
 
@@ -52,11 +51,6 @@ const routes = [
 			path: '/register/repartidor',
 			name: 'RegisterRepartidor',
 			component: RegisterRepartidorView,
-		},
-		{
-			path: '/mapa',
-			name: 'Mapa',
-			component: MapView,
 		},
 		{	path: '/delivery',
 			name: 'Delivery',

@@ -11,8 +11,7 @@ const router = useRouter();
 const itemsNotLogged = ref([
 	{ label: "Home", icon: "pi pi-home", command: () => router.push("/") },
 	{ label: "Registrarme", command: () => router.push("/register") },
-	{ label: "Iniciar sesión", command: () => router.push("/login") },
-	{ label: "Mapa", command: () => router.push("/mapa") },
+	{ label: "Iniciar sesión", command: () => router.push("/login") }
 ]);
 
 // Menú para usuarios logueados
@@ -21,11 +20,10 @@ const itemsLogged = ref([
 	{ label: "Productos", command: () => router.push("/products") },
 	{ label: "Mis órdenes", command: () => router.push("/myOrders") },
 	{ label: "Mi carrito", command: () => router.push("/cart") },
-	{ label: "Mapa", command: () => router.push("/mapa") },
 	{
 		label: "Logout",
 		command: () => logout(),
-	},
+	}
 ]);
 
 // Computed para determinar el modelo dinámico del menú

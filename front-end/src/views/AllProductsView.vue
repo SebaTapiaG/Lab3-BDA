@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- Filtro por Categoría -->
-    <div>
-      <label for="categorySelect">Filtrar por Categoría: </label>
-      <select id="categorySelect" v-model="selectedCategory">
-        <option value="">Selecciona una categoría</option>
-        <option v-for="category in categories" :key="category.id" :value="category.id">
-          {{ category.name }}
-        </option>
-      </select>
-      <Button @click="filtrarPorCategoria" class="filter-button">Filtrar</Button>
-    </div>
 
     <!-- Mostrar Productos -->
     <div v-for="(product, index) in products" :key="product.id_producto" class="card">

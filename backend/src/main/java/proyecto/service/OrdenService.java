@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import proyecto.models.OrdenModel;
+import proyecto.models.ProductoModel;
 import proyecto.repositories.OrdenRepository;
+import proyecto.repositories.ProductoRepository;
 
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class OrdenService {
 
     @Autowired
     private OrdenRepository ordenRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
 
     public ResponseEntity<List<OrdenModel>> findAll() {
         List<OrdenModel> ordenes = ordenRepository.findAll();
@@ -30,7 +35,27 @@ public class OrdenService {
     }
 
     public ResponseEntity<OrdenModel> create(OrdenModel orden) {
+        // Validar y actualizar el stock de los productos
+        orden.getDetalles().forEach(detalle -> {
+            ProductoModel producto = productoRepository.findByNombre(detalle.getProducto());
+
+            if (producto.getStock() < detalle.getCantidad()) {
+                throw new RuntimeException("No hay suficiente stock para el producto " + producto.getNombre());
+            }
+
+            // Actualizar el stock del producto
+            producto.setStock(producto.getStock() - detalle.getCantidad());
+
+            if(producto.getStock() == 0) {
+                producto.setEstado("agotado");
+            }
+            productoRepository.save(producto);
+        });
+
+        // Guardar la orden en la base de datos
         OrdenModel createdOrder = ordenRepository.save(orden);
+
+        // Retornar la respuesta
         return ResponseEntity.ok(createdOrder);
     }
 
