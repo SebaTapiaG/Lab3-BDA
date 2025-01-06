@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "clientes")  // Indica que esta clase será almacenada en la colección "clientes"
 public class ClienteModel {
 
@@ -27,6 +29,7 @@ public class ClienteModel {
     private String comuna;
     private String email;
     private String telefono;
+    private List<TarjetaModel> tarjetas;
 
     // Agregamos latitud y longitud
     private double latitud;
@@ -102,6 +105,14 @@ public class ClienteModel {
 
     public void setLongitud(double longitud) {
         this.longitud = longitud;
+    }
+
+    public List<TarjetaModel> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<TarjetaModel> tarjetas) {
+        this.tarjetas = tarjetas;
     }
 
     @Override

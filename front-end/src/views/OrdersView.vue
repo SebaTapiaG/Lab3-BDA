@@ -5,10 +5,14 @@
 			<template #content>
 				<p>Fecha: {{ order.fechaOrden }}</p>
 				<p>Estado: {{ order.estado }}</p>
-				<p>Costo total: {{ order.total }}$</p>
-				<Button @click="">Ver detalles</Button>
-				<br>
-				<br>
+				
+				<h3>Detalles:</h3>
+				<div v-for="(detalle, index) in order.detalles" :key="detalle.id">
+					<strong>- Producto: {{ detalle.producto }} -</strong>
+					<p>Cantidad: {{ detalle.cantidad }}</p>
+					<p>Costo unitario: {{ detalle.precio }}$</p>
+				</div>
+				<p>Costo total de la orden: {{ order.total }}$</p>
 				<span v-if="order.estado === 'pendiente'">
 					<Button @click="pagarOrden(index)">Pagar</Button>
 				</span>
@@ -30,6 +34,7 @@ onMounted(async () => {
 		const id = sessionStorage.getItem('userId')
 		const response = await ordenService.findByCliente(id);
 		orders.value = response.data
+		console.log(response.data)
 	} catch (error) {
 		console.error('Error fetching products:', error);
 	}
@@ -56,6 +61,10 @@ async function pagarOrden(index) {
 
 	} catch (error) {
 		console.log(error)
+	}
+
+	function verDetalles(orden){
+		return
 	}
 
 

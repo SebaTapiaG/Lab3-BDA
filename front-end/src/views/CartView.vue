@@ -171,7 +171,7 @@ async function comprarOrden() {
 	let productos = [];
 
 	for (const item of carrito) {
-    const nuevoProducto = {producto: item[0], cantidad: item[1], precio: item[2]  }
+    const nuevoProducto = {producto: item[0], cantidad: item[1], precio: item[2] / item[1]  }
 		productos.push(nuevoProducto)
   }
 
