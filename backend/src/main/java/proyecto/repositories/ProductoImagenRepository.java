@@ -8,9 +8,8 @@ import java.util.List;
 
 public interface ProductoImagenRepository extends MongoRepository<ProductoImagenModel, ObjectId> {
 
-    /*
-    // Método para encontrar las imágenes por el id_producto
-    List<ProductoImagenModel> findById_producto(ObjectId id_producto);
+    // Método para encontrar las imágenes por el id_producto (debe coincidir con el nombre del campo en el modelo)
+    List<ProductoImagenModel> findByIdProducto(ObjectId idProducto);
 
     // Método para encontrar una imagen por su tipo (por ejemplo, "imagen", "video")
     List<ProductoImagenModel> findByTipo(String tipo);
@@ -20,6 +19,4 @@ public interface ProductoImagenRepository extends MongoRepository<ProductoImagen
 
     // Método para encontrar una imagen por su descripción
     List<ProductoImagenModel> findByDescripcion(String descripcion);
-
-     */
 }
