@@ -27,7 +27,7 @@
             </div>
             <br />
             <Button
-              @click="agregarCarrito(product.id_producto, product.nombre, values[index], product.precio, index)">Agregar
+              @click="agregarCarrito( product.nombre, values[index], product.precio, index)">Agregar
               al carrito</Button>
           </span>
         </template>
@@ -82,17 +82,17 @@ const filtrarPorCategoria = async () => {
   }
 };
 
-function agregarCarrito(idProducto, producto, cantidad, precio, indice) {
-  const nuevoProducto = [idProducto, producto, cantidad, cantidad * precio];
+function agregarCarrito( producto, cantidad, precio, indice) {
+  const nuevoProducto = [ producto, cantidad, cantidad * precio];
   const misProductos = sessionStorage.getItem('carrito');
 
   let productos = misProductos ? JSON.parse(misProductos) : [];
 
   let encontrado = false;
   for (const producto of productos) {
-    if (producto[0] === idProducto) {
-      producto[2] += cantidad;
-      producto[3] += cantidad * precio;
+    if (producto[0] === nuevoProducto[0]) {
+      producto[1] += cantidad;
+      producto[2] += cantidad * precio;
       encontrado = true;
       break;
     }

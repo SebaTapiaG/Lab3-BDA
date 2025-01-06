@@ -55,12 +55,12 @@ async function login(){
             };
 						
 		try {
-		const response = await clientService.login(userObj)
-        const token = response.data;
-				console.log(jwtDecode(token))
-				const userId = jwtDecode(token).user_id
-				auth.login(userId, token)
-				router.push("/")
+				const response = await clientService.getByEmail(state.email)
+				if(response.data.contrasena === state.contrasena){
+					console.log(response.data)
+					auth.login(response.data.email, 0)
+					router.push("/")
+				}
     } catch (error) {
         console.log(error)
     }

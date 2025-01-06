@@ -14,11 +14,11 @@ public class OrdenModel {
     private ObjectId id; // MongoDB utiliza un identificador de tipo String por defecto
     private Instant fechaOrden; // Usamos Instant para fechas en lugar de Timestamp
     private String estado; // Puede ser "pendiente", "pagada", "enviada", etc.
-    private ObjectId idCliente; // Relación con el cliente (referencia)
+    private String emailCliente; // Relación con el cliente (referencia)
     private double total; // Total a pagar
     private double latitud; // Coordenada geográfica
     private double longitud; // Coordenada geográfica
-    private List<ProductoModel> productos; // Lista de productos en la orden
+    private List<DetalleModel> detalles; // Lista de productos en la orden
 
 
     public ObjectId getId() {
@@ -45,12 +45,12 @@ public class OrdenModel {
         this.estado = estado;
     }
 
-    public ObjectId getIdCliente() {
-        return idCliente;
+    public String getEmailCliente() {
+        return emailCliente;
     }
 
-    public void setIdCliente(ObjectId idCliente) {
-        this.idCliente = idCliente;
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
     }
 
     public double getTotal() {
@@ -77,11 +77,11 @@ public class OrdenModel {
         this.longitud = longitud;
     }
 
-    public List<ProductoModel> getProductos() {
-        return productos;
+    public List<DetalleModel> getDetalles() {
+        return detalles;
     }
 
-    public void setProductos(List<ProductoModel> productos) {
-        this.productos = productos;
+    public void setDetalles(List<DetalleModel> detalles) {
+        this.detalles = detalles;
     }
 }

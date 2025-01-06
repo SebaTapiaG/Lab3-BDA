@@ -21,12 +21,14 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
-    /*
+
 
     @GetMapping("")
     public ResponseEntity<List<ProductoModel>> findAll(){
         return productoService.findAll();
     }
+
+    /*
 
     @GetMapping("/categoria/{id_categoria}")
     public ResponseEntity<List<ProductoModel>> findByCategoria(@PathVariable ObjectId id_categoria){

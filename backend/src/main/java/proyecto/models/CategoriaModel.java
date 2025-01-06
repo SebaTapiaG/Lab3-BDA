@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Categoria")
+@Document(collection = "categoria")
 public class CategoriaModel {
     /* Atributos
     Campo Tipo de dato Descripción

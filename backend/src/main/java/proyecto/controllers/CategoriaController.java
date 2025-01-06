@@ -20,8 +20,8 @@ public class CategoriaController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Object>> findAll(){
-        return (ResponseEntity<List<Object>>) categoriaService.findAll();
+    public List<CategoriaModel> findAll(){
+        return categoriaService.findAll();
     }
 
     @GetMapping("/{id_categoria}")

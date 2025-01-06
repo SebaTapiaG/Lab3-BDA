@@ -20,7 +20,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<List<ClienteModel>> findAll(){
         return clienteService.findAll();
     }

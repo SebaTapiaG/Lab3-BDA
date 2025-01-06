@@ -45,9 +45,9 @@ public class OrdenController {
         return ordenService.delete(id_orden);
     }
 
-    @GetMapping("/findByCliente/{id_cliente}")
-    public ResponseEntity<List<Object>> findByCliente(@PathVariable ObjectId id_cliente) {
-        return ordenService.findByIdCliente(id_cliente);
+    @GetMapping("/findByCliente/{email}")
+    public ResponseEntity<List<OrdenModel>> findByCliente(@PathVariable String email) {
+        return ordenService.findByEmailCliente(email);
     }
 
     /*

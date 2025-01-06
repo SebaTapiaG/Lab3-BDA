@@ -1,10 +1,10 @@
 <template>
 	<div v-for="product in products" class="card">
 		<Card>
-			<template #title>{{ product[1] }}</template>
+			<template #title>{{ product[0] }}</template>
 			<template #content>
-				<p>Cantidad: {{ product[2] }} unidad(es)</p>
-				<p>Precio: {{ product[3] }}$</p>
+				<p>Cantidad: {{ product[1] }} unidad(es)</p>
+				<p>Precio: {{ product[2] }}$</p>
 			</template>
 		</Card>
 	</div>
@@ -58,7 +58,7 @@ onMounted(async () => {
 		products.value = misProductos ? JSON.parse(misProductos) : [];
 		var price = 0;
 		for (const product of products.value) {
-			price += product[3]
+			price += product[2]
 		}
 		precio.value = price;
 
@@ -125,10 +125,7 @@ onMounted(async () => {
 
 async function guardarOrden() {
 	const idUsuario = sessionStorage.getItem('userId');
-	const token = sessionStorage.getItem('user');
-	const tokenId = jwtDecode(token).user_id;
-	console.log(tokenId);
-	console.log(tokenId === idUsuario);
+	const carrito = JSON.parse(sessionStorage.getItem('carrito'));
 
 	if (true) {
 		const fecha = new Date();
@@ -139,38 +136,17 @@ async function guardarOrden() {
 		const orden = {
 			fecha_orden: "",
 			estado: "pendiente",
-			id_cliente: idUsuario,
+			emailCliente: idUsuario,
 			total: precio.value,
-			latitud: latitud,
-			longitud: longitud
+			latitud: 0,
+			longitud: 0,
+			detalles: carrito
 		};
 
 		try {
 			// Crear la orden
-			const response = await ordenService.create(orden);
-
-			const misProductos = sessionStorage.getItem('carrito');
-			const productos = misProductos ? JSON.parse(misProductos) : [];
-			for (const producto of productos) {
-				const detalle = {
-					id_orden: response.data.id_orden,
-					id_producto: producto[0],
-					cantidad: producto[2],
-					precio_unitario: producto[3] / producto[2],
-				};
-
-				try {
-					// Crear cada detalle de la orden
-					const response2 = await detalleOrdenService.create(detalle);
-				} catch (error) {
-					// Capturar errores del trigger por falta de stock
-					console.error("Error al crear detalle de la orden:", error.response.data.message || error.message);
-					alert(`Error: ${error.response.data.message || 'La orden no se pudo crear debido a falta de stock'}`);
-					return; // Salir para evitar guardar la orden en caso de error
-				}
-			}
-
-			
+			console.log(orden)
+			const response = await ordenService.create(orden);			
 
 			// Limpiar el carrito y recargar la página
 			sessionStorage.setItem('carrito', []);
