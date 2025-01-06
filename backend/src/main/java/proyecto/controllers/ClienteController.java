@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import proyecto.models.ClienteModel;
+import proyecto.models.TarjetaModel;
 import proyecto.service.ClienteService;
 
 import java.util.List;
@@ -55,4 +56,20 @@ public class ClienteController {
         return clienteService.delete(id_cliente);
     }
 
+    @GetMapping("/getTarjetas/{email}")
+    public ResponseEntity<List<TarjetaModel>> getTarjetas(@PathVariable String email) {
+        return clienteService.getAllTarjetas(email);
+    }
+
+    @PostMapping("/addTarjeta/{email}")
+    public ResponseEntity<?> addTarjeta(@PathVariable String email,
+                                          @RequestBody TarjetaModel tarjeta){
+        return clienteService.addTarjetas(email, tarjeta);
+    }
+
+    @PostMapping("/deleteTarjeta/{email}")
+    public ResponseEntity<?> deleteTarjeta(@PathVariable String email,
+                                        @RequestBody TarjetaModel tarjeta){
+        return clienteService.deleteTarjeta(email, tarjeta);
+    }
 }

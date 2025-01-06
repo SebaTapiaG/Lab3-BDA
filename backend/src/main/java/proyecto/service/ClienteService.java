@@ -2,9 +2,11 @@ package proyecto.service;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import proyecto.models.ClienteModel;
+import proyecto.models.TarjetaModel;
 import proyecto.repositories.ClienteRepository;
 
 import java.util.List;
@@ -95,4 +97,45 @@ public class ClienteService {
         return ResponseEntity.notFound().build();
     }
     */
+
+    public ResponseEntity<List<TarjetaModel>> getAllTarjetas(String email) {
+        Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
+
+        if (cliente.isPresent()) {
+            List<TarjetaModel> tarjetas = cliente.get().getTarjetas();
+            return ResponseEntity.ok(tarjetas);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<Void> addTarjetas(String email, TarjetaModel tarjeta){
+        Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
+
+        if (cliente.isPresent()) {
+            if(cliente.get().getTarjetas().contains(tarjeta)){
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }else{
+                cliente.get().getTarjetas().add(tarjeta);
+                clienteRepository.save(cliente.get());
+                return ResponseEntity.ok().build();
+            }
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public ResponseEntity<Void> deleteTarjeta(String email, TarjetaModel tarjeta){
+        Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
+        if (cliente.isPresent()) {
+            if (cliente.get().getTarjetas().contains(tarjeta)) {
+                List<TarjetaModel> tarjetas = cliente.get().getTarjetas();
+                tarjetas.remove(tarjeta);
+                cliente.get().setTarjetas(tarjetas);
+                clienteRepository.save(cliente.get());
+            }
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 }
