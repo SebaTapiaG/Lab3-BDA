@@ -1,9 +1,9 @@
 <template>
 	<div v-for="(order, index) in orders" class="card" :key="order.id_orden">
 		<Card>
-			<template #title>N° de orden: {{ order.id_orden }}</template>
+			<template #title>Información de la orden: {{ order.id_orden }}</template>
 			<template #content>
-				<p>Fecha: {{ order.fecha_orden }}</p>
+				<p>Fecha: {{ order.fechaOrden }}</p>
 				<p>Estado: {{ order.estado }}</p>
 				<p>Costo total: {{ order.total }}$</p>
 				<Button @click="">Ver detalles</Button>

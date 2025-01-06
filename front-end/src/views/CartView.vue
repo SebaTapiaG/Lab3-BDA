@@ -21,9 +21,6 @@
 	<div class="button">
 		<Button @click="comprarOrden">Comprar orden</Button>
 	</div>
-	<div class="button">
-		<Button @click="verCoordenadas">Ver coordenadas</Button>
-	</div>
 </template>
 
 <script setup>
@@ -127,6 +124,13 @@ async function guardarOrden() {
 	const idUsuario = sessionStorage.getItem('userId');
 	const carrito = JSON.parse(sessionStorage.getItem('carrito'));
 
+	let productos = [];
+
+	for (const item of carrito) {
+    const nuevoProducto = {producto: item[0], cantidad: item[1], precio: item[2]  }
+		productos.push(nuevoProducto)
+  }
+
 	if (true) {
 		const fecha = new Date();
 		const fechaISO = fecha.toISOString(); // Formato 'yyyy-MM-ddTHH:mm:ss.SSSZ'
@@ -134,13 +138,13 @@ async function guardarOrden() {
 		console.log(fechaSinMilisegundos);
 
 		const orden = {
-			fecha_orden: "",
+			fechaOrden: fechaSinMilisegundos,
 			estado: "pendiente",
 			emailCliente: idUsuario,
 			total: precio.value,
 			latitud: 0,
 			longitud: 0,
-			detalles: carrito
+			detalles: productos
 		};
 
 		try {
@@ -162,10 +166,14 @@ async function guardarOrden() {
 
 async function comprarOrden() {
 	const idUsuario = sessionStorage.getItem('userId');
-	const token = sessionStorage.getItem('user');
-	const tokenId = jwtDecode(token).user_id;
-	console.log(tokenId);
-	console.log(tokenId === idUsuario);
+	const carrito = JSON.parse(sessionStorage.getItem('carrito'));
+
+	let productos = [];
+
+	for (const item of carrito) {
+    const nuevoProducto = {producto: item[0], cantidad: item[1], precio: item[2]  }
+		productos.push(nuevoProducto)
+  }
 
 	if (true) {
 		const fecha = new Date();
@@ -174,42 +182,19 @@ async function comprarOrden() {
 		console.log(fechaSinMilisegundos);
 
 		const orden = {
-			fecha_orden: "",
+			fechaOrden: fechaSinMilisegundos,
 			estado: "pagada",
-			id_cliente: idUsuario,
+			emailCliente: idUsuario,
 			total: precio.value,
-			latitud: latitud,
-			longitud: longitud
+			latitud: 0,
+			longitud: 0,
+			detalles: productos
 		};
 
 		try {
 			// Crear la orden
-			const response = await ordenService.create(orden);
-
-			const misProductos = sessionStorage.getItem('carrito');
-			const productos = misProductos ? JSON.parse(misProductos) : [];
-			for (const producto of productos) {
-				const detalle = {
-					id_orden: response.data.id_orden,
-					id_producto: producto[0],
-					cantidad: producto[2],
-					precio_unitario: producto[3] / producto[2],
-				};
-
-				try {
-					// Crear cada detalle de la orden
-					const response2 = await detalleOrdenService.create(detalle);
-					console.log(response2.data)
-				} catch (error) {
-					// Capturar errores del trigger por falta de stock
-					console.error("Error al crear detalle de la orden:", error.response.data.message || error.message);
-					alert(`Error: ${error.response.data.message || 'La orden no se pudo crear debido a falta de stock'}`);
-					return; // Salir para evitar guardar la orden en caso de error
-				}
-			}
-			console.log(response.data)
-
-			const up = await ordenService.update(response.data);
+			console.log(orden)
+			const response = await ordenService.create(orden);			
 
 			// Limpiar el carrito y recargar la página
 			sessionStorage.setItem('carrito', []);
