@@ -8,6 +8,7 @@ import CartView from '../views/CartView.vue';
 import OrdersView from '../views/OrdersView.vue';
 import RegisterRepartidorView from '../views/RegisterDeliveryView.vue';
 import DeliveryView from '@/views/DeliveryView.vue';
+import TarjetasView from '@/views/SeleccionarTarjeta.vue';
 
 
 
@@ -55,6 +56,11 @@ const routes = [
 		{	path: '/delivery',
 			name: 'Delivery',
 			component: DeliveryView,
+		},
+		{
+			path: '/tarjetas',
+			name: 'Tarjetas',
+			component: TarjetasView,
 		}
 		
 

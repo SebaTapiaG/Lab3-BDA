@@ -20,12 +20,17 @@ const register = userObj => {
     return httpClient.post("/api/cliente/register", userObj);
 }
 
-const puntoMedio = (id1, id2) =>{
-  return httpClient.get(`/api/cliente/puntomedio/${id1}/${id2}`).then(response => {
-    console.log("Respuesta del backend:", response.data);
-    return response.data;
-  });
-};
+const getTarjetas = email => {
+  return httpClient.get(`/api/cliente/getTarjetas/${email}`);
+}
+
+const addTarjeta = (email, tarjeta) => {
+  return httpClient.post(`/api/cliente/addTarjeta/${email}`, tarjeta);
+}
+
+const deleteTarjeta = (email, tarjeta) => {
+  return httpClient.post(`/api/cliente/deleteTarjeta/${email}/${tarjeta}`);
+}
 
 export default {
     getAll,
@@ -33,5 +38,7 @@ export default {
     getByEmail,
     login,
     register,
-    puntoMedio
+    addTarjeta,
+    getTarjetas,
+    deleteTarjeta
 };

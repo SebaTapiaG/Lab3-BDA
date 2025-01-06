@@ -35,11 +35,17 @@ import axios from "axios";
 
 const products = ref([]);
 const precio = ref([]);
+const mostrarTarjetas = ref(false);
 const zonasRestringidas = ref([]);
 const values = new Array(products.length).fill(null);
 var map;
 var latitud;
 var longitud;
+
+function procesarPago(tarjeta) {
+  mostrarTarjetas.value = false;
+  alert(`Procesar pago con la tarjeta: ${tarjeta}`);
+}
 
 
 onMounted(async () => {
