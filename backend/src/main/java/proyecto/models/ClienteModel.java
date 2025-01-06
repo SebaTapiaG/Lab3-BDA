@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Cliente")  // Indica que esta clase será almacenada en la colección "clientes"
+@Document(collection = "clientes")  // Indica que esta clase será almacenada en la colección "clientes"
 public class ClienteModel {
 
     /* Atributos

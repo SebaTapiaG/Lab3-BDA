@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Producto")
+@Document(collection = "productos")
 public class ProductoModel {
 
     @Id // Identificador único en MongoDB

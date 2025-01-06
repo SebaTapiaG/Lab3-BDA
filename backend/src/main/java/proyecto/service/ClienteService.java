@@ -72,7 +72,9 @@ public class ClienteService {
 
     // Realiza el login de un cliente
     public ResponseEntity<Object> loginUser(String email, String password) {
+
         Optional<ClienteModel> cliente = clienteRepository.findByEmail(email);
+        System.out.println(cliente.get().getEmail());
         if (cliente.isPresent() && cliente.get().getContrasena().equals(password)) {
             return ResponseEntity.ok(cliente.get());
         }

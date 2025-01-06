@@ -53,8 +53,8 @@ public class OrdenService {
         }
     }
 
-    public ResponseEntity<List<OrdenModel>> findByEmailCliente(String email) {
-        return (ResponseEntity<List<OrdenModel>>) ordenRepository.findByEmailCliente(email);
+    public List<OrdenModel> findByEmailCliente(String email) {
+        return ordenRepository.findByEmailCliente(email);
     }
 /*
     public ResponseEntity<List<RepartidorDTO>> findDeliveryCompletedInArea(int id_zona) {

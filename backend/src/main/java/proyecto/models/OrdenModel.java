@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 import java.util.List;
 
-@Document(collection = "Orden") // Indica que esta clase representa una colección en MongoDB
+@Document(collection = "ordenes") // Indica que esta clase representa una colección en MongoDB
 public class OrdenModel {
 
     @Id // Identificador único en MongoDB
     private ObjectId id; // MongoDB utiliza un identificador de tipo String por defecto
-    private Instant fechaOrden; // Usamos Instant para fechas en lugar de Timestamp
+    private String fechaOrden; // Usamos Instant para fechas en lugar de Timestamp
     private String estado; // Puede ser "pendiente", "pagada", "enviada", etc.
     private String emailCliente; // Relación con el cliente (referencia)
     private double total; // Total a pagar
@@ -29,11 +29,11 @@ public class OrdenModel {
         this.id = id;
     }
 
-    public Instant getFechaOrden() {
+    public String getFechaOrden() {
         return fechaOrden;
     }
 
-    public void setFechaOrden(Instant fechaOrden) {
+    public void setFechaOrden(String fechaOrden) {
         this.fechaOrden = fechaOrden;
     }
 

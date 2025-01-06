@@ -47,7 +47,7 @@ public class OrdenController {
 
     @GetMapping("/findByCliente/{email}")
     public ResponseEntity<List<OrdenModel>> findByCliente(@PathVariable String email) {
-        return ordenService.findByEmailCliente(email);
+        return ResponseEntity.ok(ordenService.findByEmailCliente(email));
     }
 
     /*
