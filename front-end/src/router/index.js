@@ -58,9 +58,15 @@ const routes = [
 			component: DeliveryView,
 		},
 		{
+<<<<<<< Updated upstream
 			path: '/tarjetas',
 			name: 'Tarjetas',
 			component: TarjetasView,
+=======
+			path: '/producto/:nombre',
+			name: 'Producto',
+			component: ProductView
+>>>>>>> Stashed changes
 		}
 		
 

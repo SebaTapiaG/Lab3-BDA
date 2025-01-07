@@ -15,6 +15,8 @@
               <InputNumber v-model="values[index]" inputId="minmax" :min="0" :max="product.stock" fluid />
             </div>
             <br />
+						<Button
+              @click="verDetalles( product.nombre )">Ver Detalles</Button>
             <Button
               @click="agregarCarrito( product.nombre, values[index], product.precio, index)">Agregar
               al carrito</Button>
@@ -30,6 +32,7 @@
 import { ref, onMounted } from "vue";
 import { Button, InputNumber, Card } from "primevue";
 import productoService from '../services/producto.service';
+import router from "@/router";
 
 // Categorías disponibles
 const categories = ref([
@@ -93,6 +96,11 @@ function agregarCarrito( producto, cantidad, precio, indice) {
 
   sessionStorage.setItem('carrito', JSON.stringify(productos));
 }
+
+function verDetalles(nombre) {
+    router.push(`/producto/${nombre}`);
+}
+
 </script>
 
 

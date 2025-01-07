@@ -8,8 +8,8 @@ const findByCategoria = idCategoria => {
     return httpCommon.get(`/api/producto/categoria/${idCategoria}`);
 }
 
-const findById = id => {
-    return httpCommon.get(`/api/producto/${id}`);
+const findByNombre = nombre => {
+    return httpCommon.get(`/api/producto/${nombre}`);
 }
 
 const create = data => {
@@ -31,7 +31,7 @@ const remove = id => {
 export default {
     getAll,
     findByCategoria,
-    findById,
+    findByNombre,
     create,
     update,
     remove,

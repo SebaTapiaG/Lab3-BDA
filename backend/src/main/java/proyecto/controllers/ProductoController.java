@@ -28,18 +28,13 @@ public class ProductoController {
         return productoService.findAll();
     }
 
+    @GetMapping("/{producto}")
+    public ResponseEntity<ProductoModel> findById(@PathVariable String producto) {
+        return productoService.findByNombre(producto);
+
+    }
+
     /*
-
-    @GetMapping("/categoria/{id_categoria}")
-    public ResponseEntity<List<ProductoModel>> findByCategoria(@PathVariable ObjectId id_categoria){
-        return productoService.findByCategoria(id_categoria);
-    }
-
-    @GetMapping("/{id_producto}")
-    public ResponseEntity<Optional<ProductoModel>> findById(@PathVariable ObjectId id_producto) {
-        return productoService.findById(id_producto);
-
-    }
 
     @PostMapping("/create")
     public ResponseEntity<ProductoModel> create(@RequestBody ProductoModel producto){
